@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post Title — theGr8Val</title>
+  <meta name="description" content="Post description here." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/blog.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="scanline"></div>
+
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">theGr8Val<span class="cursor-blink">_</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">about</a></li>
+        <li><a href="../index.html#projects">projects</a></li>
+        <li><a href="../index.html#blog">blog</a></li>
+        <li><a href="../index.html#links">links</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="post-layout">
+    <div class="post-inner">
+
+      <!-- Post Header -->
+      <header class="post-header">
+        <div class="post-breadcrumb">
+          <a href="../index.html#blog">← back to blog</a>
+        </div>
+        <div class="post-meta-row">
+          <span class="post-date">2025-01-01</span>
+          <span class="post-tag">writeup</span>
+          <span class="post-tag">CTF</span>
+        </div>
+        <h1 class="post-title">CTF Writeup: Challenge Name [EventName 2025]</h1>
+        <p class="post-subtitle">How I solved it, what I learned, and the three rabbit holes I didn't need to go down.</p>
+        <div class="post-divider"></div>
+      </header>
+
+      <!-- Post Body -->
+      <article class="post-body">
+
+        <h2>TL;DR</h2>
+        <p>One paragraph summary of the solution. For people who want the answer without the journey (but honestly, the journey is the point).</p>
+
+        <h2>The Challenge</h2>
+        <p>Describe the challenge: what category, what was given, what the goal was. Paste the challenge description here.</p>
+
+        <div class="callout info">
+          <span class="callout-label">challenge info</span>
+          <p><strong>Event:</strong> EventName 2025<br>
+          <strong>Category:</strong> Web / Forensics / Pwn / Crypto<br>
+          <strong>Points:</strong> 500<br>
+          <strong>Files:</strong> <code>challenge.zip</code></p>
+        </div>
+
+        <h2>Reconnaissance</h2>
+        <p>What did you look at first? What tools did you use? Walk through your initial approach here. Don't skip the dead ends — they're useful.</p>
+
+        <pre><code>$ file challenge.bin
+challenge.bin: ELF 64-bit LSB executable, x86-64
+
+$ strings challenge.bin | grep flag
+# nothing interesting (of course)
+
+$ ltrace ./challenge.bin
+</code></pre>
+
+        <h2>Finding the Vulnerability</h2>
+        <p>The moment of discovery. What was the flaw? What made you suspect it? How did you confirm it?</p>
+
+        <div class="callout warning">
+          <span class="callout-label">key insight</span>
+          <p>The important realization that changed everything. What was the "aha" moment?</p>
+        </div>
+
+        <h2>Exploitation</h2>
+        <p>Step-by-step walkthrough of how you exploited the vulnerability. Include your actual payload/code.</p>
+
+        <pre><code>#!/usr/bin/env python3
+# solve.py
+
+from pwn import *
+
+HOST = "challenge.event.ctf"
+PORT = 1337
+
+p = remote(HOST, PORT)
+
+# your exploit here
+payload = b"A" * 64 + p64(0xdeadbeef)
+p.sendline(payload)
+
+flag = p.recvline().decode()
+print(f"[+] Flag: {flag}")
+</code></pre>
+
+        <h2>Getting the Flag</h2>
+        <p>What happened when you ran it. Any adjustments needed. The output.</p>
+
+        <pre><code>$ python3 solve.py
+[+] Opening connection to challenge.event.ctf on port 1337
+[+] Flag: EventName{th3_fl4g_g03s_h3r3}</code></pre>
+
+        <div class="callout success">
+          <span class="callout-label">flag</span>
+          <p><code>EventName{th3_fl4g_g03s_h3r3}</code></p>
+        </div>
+
+        <h2>Takeaways</h2>
+        <p>What did you learn? What would you do differently? Any tools or techniques worth remembering?</p>
+
+        <ul>
+          <li>Key learning one</li>
+          <li>Key learning two</li>
+          <li>Tool or resource that helped</li>
+        </ul>
+
+        <h2>Resources</h2>
+        <ul>
+          <li><a href="#">Reference 1</a></li>
+          <li><a href="#">Reference 2</a></li>
+        </ul>
+
+      </article>
+
+      <!-- Post Footer -->
+      <footer class="post-footer">
+        <div class="post-footer-cta">
+          <p>Was this helpful? Buy me a coffee — it funds the next late-night CTF session.</p>
+          <a href="https://buymeacoffee.com/theGr8Val" target="_blank" class="btn-primary">☕ buy me a coffee</a>
+        </div>
+        <div class="post-nav">
+          <a href="../index.html#blog" class="post-nav-link">← all posts</a>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

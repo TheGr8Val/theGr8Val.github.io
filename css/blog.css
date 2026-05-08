@@ -1,0 +1,227 @@
+/* Blog Post Styles */
+
+.post-layout {
+  padding-top: 100px;
+  min-height: 100vh;
+}
+
+.post-inner {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 60px 32px 100px;
+}
+
+.post-breadcrumb {
+  margin-bottom: 32px;
+}
+
+.post-breadcrumb a {
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+
+.post-breadcrumb a:hover {
+  color: var(--accent);
+}
+
+.post-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.post-date {
+  font-size: 11px;
+  color: var(--text-dimmer);
+  letter-spacing: 0.05em;
+}
+
+.post-tag {
+  font-size: 10px;
+  color: var(--accent);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.post-title {
+  font-family: var(--font-sans);
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.post-subtitle {
+  font-size: 15px;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.post-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 48px;
+}
+
+/* ── Post body typography ── */
+.post-body {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--text-dim);
+}
+
+.post-body h2 {
+  font-family: var(--font-sans);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 48px 0 16px;
+  letter-spacing: -0.01em;
+}
+
+.post-body h3 {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--accent);
+  margin: 32px 0 12px;
+  letter-spacing: 0.05em;
+}
+
+.post-body p {
+  margin-bottom: 20px;
+}
+
+.post-body a {
+  color: var(--accent);
+  border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+  transition: border-color 0.2s;
+}
+
+.post-body a:hover {
+  border-color: var(--accent);
+}
+
+.post-body ul, .post-body ol {
+  padding-left: 24px;
+  margin-bottom: 20px;
+}
+
+.post-body li {
+  margin-bottom: 8px;
+}
+
+.post-body code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: var(--bg-3);
+  color: var(--accent);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.post-body pre {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+.post-body pre code {
+  background: none;
+  color: var(--text-dim);
+  padding: 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* ── Callouts ── */
+.callout {
+  padding: 20px 24px;
+  border-radius: var(--radius);
+  margin: 24px 0;
+  position: relative;
+}
+
+.callout.info {
+  background: rgba(0, 150, 255, 0.05);
+  border: 1px solid rgba(0, 150, 255, 0.2);
+}
+
+.callout.warning {
+  background: rgba(255, 204, 0, 0.05);
+  border: 1px solid rgba(255, 204, 0, 0.2);
+}
+
+.callout.success {
+  background: var(--accent-dim);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.callout-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dimmer);
+  margin-bottom: 10px;
+}
+
+.callout.success .callout-label { color: var(--accent); }
+
+.callout p {
+  margin: 0;
+  font-size: 13px;
+}
+
+/* ── Post footer ── */
+.post-footer {
+  margin-top: 80px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+
+.post-footer-cta {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.post-footer-cta p {
+  font-size: 13px;
+  color: var(--text-dim);
+  flex: 1;
+}
+
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-nav-link {
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+
+.post-nav-link:hover {
+  color: var(--accent);
+}

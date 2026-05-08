@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>theGr8Val — security, code, overthinking</title>
+  <meta name="description" content="theGr8Val — CTF player, security researcher, open-source advocate, professional overthinker." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="scanline"></div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <span class="nav-logo">theGr8Val<span class="cursor-blink">_</span></span>
+      <ul class="nav-links">
+        <li><a href="#about">about</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#blog">blog</a></li>
+        <li><a href="#links">links</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-tag">[ security / ctf / open-source ]</div>
+      <h1 class="hero-title">
+        <span class="glitch" data-text="theGr8Val">theGr8Val</span>
+      </h1>
+      <p class="hero-sub">I break things to understand them.<br>I build things to fix them.<br>I write things so I don't lose my mind.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">view work</a>
+        <a href="https://github.com/theGr8Val" target="_blank" class="btn-ghost">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+          github
+        </a>
+      </div>
+    </div>
+    <div class="hero-terminal">
+      <div class="terminal-header">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="terminal-title">~/theGr8Val</span>
+      </div>
+      <div class="terminal-body" id="terminal-body">
+        <div class="term-line"><span class="prompt">$</span> <span class="cmd">whoami</span></div>
+        <div class="term-line output" id="t1"></div>
+        <div class="term-line"><span class="prompt">$</span> <span class="cmd">cat interests.txt</span></div>
+        <div class="term-line output" id="t2"></div>
+        <div class="term-line"><span class="prompt">$</span> <span class="cmd">ls ctf/</span></div>
+        <div class="term-line output" id="t3"></div>
+        <div class="term-line"><span class="prompt">$</span> <span class="cmd" id="t4-cmd"></span><span class="cursor-blink">_</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="section-label">// 01 — about</div>
+      <div class="about-grid">
+        <div class="about-text">
+          <h2>not your typical<br><em>security person</em></h2>
+          <p>I'm Val. I live at the intersection of curiosity and paranoia — which, if you think about it, is exactly where you want your security researcher to be.</p>
+          <p>CTF competitions are my gym. Open source is my philosophy. Overthinking is my superpower (and my curse). I believe the best way to understand a system is to try to break it — ethically, of course.</p>
+          <p>When I'm not hunting flags or submitting PRs, I'm probably writing about the thing I just learned, the rabbit hole I fell into, or the tool I built at 2 AM because nothing else did exactly what I needed.</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <span class="stat-num">∞</span>
+            <span class="stat-label">CTFs played</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">OSS</span>
+            <span class="stat-label">forever</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">2AM</span>
+            <span class="stat-label">peak hours</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">¿?</span>
+            <span class="stat-label">lines of thought/day</span>
+          </div>
+        </div>
+      </div>
+      <div class="skills-row">
+        <span class="skill-tag">binary exploitation</span>
+        <span class="skill-tag">web security</span>
+        <span class="skill-tag">reverse engineering</span>
+        <span class="skill-tag">OSINT</span>
+        <span class="skill-tag">forensics</span>
+        <span class="skill-tag">python</span>
+        <span class="skill-tag">bash</span>
+        <span class="skill-tag">linux</span>
+        <span class="skill-tag">open-source</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="section-label">// 02 — projects</div>
+      <h2>things I've built<br><em>& broken</em></h2>
+      <div class="projects-grid">
+
+        <article class="project-card">
+          <div class="project-meta">
+            <span class="project-type">tool</span>
+            <span class="project-lang">python</span>
+          </div>
+          <h3>Project Alpha</h3>
+          <p>A brief description of what this tool does, the problem it solves, and why you built it at an unreasonable hour.</p>
+          <div class="project-links">
+            <a href="https://github.com/theGr8Val" target="_blank">→ source</a>
+          </div>
+        </article>
+
+        <article class="project-card featured">
+          <div class="project-meta">
+            <span class="project-type">writeup</span>
+            <span class="project-lang">CTF</span>
+          </div>
+          <h3>CTF Writeup Series</h3>
+          <p>Detailed technical writeups from various CTF competitions — because if I suffered through it, the least I can do is make it useful for someone else.</p>
+          <div class="project-links">
+            <a href="#blog">→ read writeups</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-meta">
+            <span class="project-type">script</span>
+            <span class="project-lang">bash</span>
+          </div>
+          <h3>Project Beta</h3>
+          <p>Another thing born from necessity. Add your actual project here — description, context, what problem it addresses.</p>
+          <div class="project-links">
+            <a href="https://github.com/theGr8Val" target="_blank">→ source</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-meta">
+            <span class="project-type">research</span>
+            <span class="project-lang">misc</span>
+          </div>
+          <h3>Add Your Project</h3>
+          <p>Drop your real projects in <code>index.html</code> — they'll look right at home here.</p>
+          <div class="project-links">
+            <a href="https://github.com/theGr8Val" target="_blank">→ github</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <div class="section-inner">
+      <div class="section-label">// 03 — blog</div>
+      <h2>writing things<br><em>down</em></h2>
+      <div class="blog-list">
+
+        <a href="blog/post-template.html" class="blog-card">
+          <div class="blog-card-meta">
+            <span class="blog-date">2025-01-01</span>
+            <span class="blog-tag">writeup</span>
+          </div>
+          <h3 class="blog-title">CTF Writeup: Challenge Name [EventName 2025]</h3>
+          <p class="blog-excerpt">A walkthrough of how I approached and solved this challenge. Category, tools used, the rabbit holes I went down, and what I learned.</p>
+          <span class="blog-read">read →</span>
+        </a>
+
+        <a href="#" class="blog-card">
+          <div class="blog-card-meta">
+            <span class="blog-date">2024-12-15</span>
+            <span class="blog-tag">thoughts</span>
+          </div>
+          <h3 class="blog-title">Why I stopped using [Tool] and what I use instead</h3>
+          <p class="blog-excerpt">An opinion piece. Possibly controversial. Definitely overthought. Add your real posts here.</p>
+          <span class="blog-read">read →</span>
+        </a>
+
+        <a href="#" class="blog-card">
+          <div class="blog-card-meta">
+            <span class="blog-date">2024-11-20</span>
+            <span class="blog-tag">tutorial</span>
+          </div>
+          <h3 class="blog-title">Understanding [Concept] from first principles</h3>
+          <p class="blog-excerpt">Because the documentation was confusing and I had to figure it out anyway. Might as well write it up.</p>
+          <span class="blog-read">read →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LINKS -->
+  <section id="links">
+    <div class="section-inner">
+      <div class="section-label">// 04 — links</div>
+      <div class="links-layout">
+        <div class="links-copy">
+          <h2>find me<br><em>out there</em></h2>
+          <p>I'm not everywhere, but I'm somewhere. Links to the places where I actually exist online.</p>
+        </div>
+        <div class="links-grid">
+          <a href="https://github.com/theGr8Val" target="_blank" class="link-card">
+            <div class="link-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+            </div>
+            <div class="link-info">
+              <span class="link-name">GitHub</span>
+              <span class="link-desc">code, tools, writeups</span>
+            </div>
+            <span class="link-arrow">↗</span>
+          </a>
+
+          <a href="https://buymeacoffee.com/thegr8val" target="_blank" class="link-card highlight">
+            <div class="link-icon">☕</div>
+            <div class="link-info">
+              <span class="link-name">Buy Me a Coffee</span>
+              <span class="link-desc">if this helped you, fuel the next writeup</span>
+            </div>
+            <span class="link-arrow">↗</span>
+          </a>
+
+          <a href="mailto:Thegr8Val@proton.me" class="link-card">
+            <div class="link-icon">✉</div>
+            <div class="link-info">
+              <span class="link-name">Email</span>
+              <span class="link-desc">for real things worth discussing</span>
+            </div>
+            <span class="link-arrow">↗</span>
+          </a>
+
+          <a href="https://x.com/TheGr8V4l" target="_blank" class="link-card">
+            <div class="link-icon">𝕏</div>
+            <div class="link-info">
+              <span class="link-name">Twitter / X</span>
+              <span class="link-desc">thoughts, links, live CTF suffering</span>
+            </div>
+            <span class="link-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">theGr8Val<span class="cursor-blink">_</span></span>
+      <span class="footer-copy">built in the dark. deployed with intent.</span>
+      <a href="https://github.com/theGr8Val/theGr8Val.github.io" target="_blank" class="footer-src">view source ↗</a>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
