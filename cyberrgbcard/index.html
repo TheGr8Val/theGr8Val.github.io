@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RGB Character Card Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #03020a;
+    --surface: #0d0b1e;
+    --border: #1a1535;
+    --cyan: #00f5ff;
+    --pink: #ff006e;
+    --violet: #9b59ff;
+    --gold: #ffd700;
+    --green: #39ff14;
+    --text: #e0d7ff;
+    --muted: #6b6190;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  header {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  header h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--cyan), var(--violet), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.05em;
+  }
+
+  header p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    margin-top: 8px;
+    text-transform: uppercase;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .form-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 32px;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+
+  .form-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--violet), var(--pink));
+  }
+
+  .form-panel h2 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .form-panel h2::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  .field { margin-bottom: 18px; }
+
+  label {
+    display: block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  select, input, textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+  }
+
+  select:focus, input:focus, textarea:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 1px var(--cyan), 0 0 20px rgba(0,245,255,0.08);
+  }
+
+  select option { background: #0d0b1e; }
+  textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* Gender toggle pills */
+  .gender-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .gender-pill {
+    flex: 1;
+    min-width: 70px;
+    padding: 8px 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .gender-pill:hover {
+    border-color: var(--violet);
+    color: var(--violet);
+  }
+
+  .gender-pill.active {
+    border-color: var(--violet);
+    background: rgba(155,89,255,0.15);
+    color: var(--violet);
+    box-shadow: 0 0 12px rgba(155,89,255,0.2);
+  }
+
+  .btn-generate {
+    width: 100%;
+    margin-top: 10px;
+    padding: 14px;
+    background: transparent;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .btn-generate::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--cyan);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: -1;
+  }
+
+  .btn-generate:hover { color: var(--bg); box-shadow: 0 0 30px rgba(0,245,255,0.3); }
+  .btn-generate:hover::before { transform: translateX(0); }
+  .btn-generate:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Preview */
+  .preview-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .preview-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+    align-self: flex-start;
+  }
+
+  .card-wrap {
+    width: 100%;
+    max-width: 340px;
+    perspective: 1000px;
+  }
+
+  .card {
+    width: 100%;
+    aspect-ratio: 2.5 / 3.5;
+    border-radius: 12px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .card:hover { transform: rotateY(180deg); }
+
+  .card-front, .card-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    backface-visibility: hidden;
+    overflow: hidden;
+  }
+
+  .card-back { transform: rotateY(180deg); }
+
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @keyframes spin-rgb {
+    to { --angle: 360deg; }
+  }
+
+  .card-front {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  /* Style themes */
+  .card-front.cyberpunk { background: linear-gradient(145deg, #020d1a, #0a1a0a); --ca: #00f5ff; --cb: #39ff14; }
+  .card-front.anime     { background: linear-gradient(145deg, #1a0520, #0d1a3a); --ca: #ff006e; --cb: #ffd700; }
+  .card-front.chibi     { background: linear-gradient(145deg, #1a0a2e, #0a1a2e); --ca: #ff69b4; --cb: #b667ff; }
+
+  .card-front::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 14px;
+    background: conic-gradient(from var(--angle, 0deg), #ff006e, #9b59ff, #00f5ff, #39ff14, #ff006e);
+    z-index: -1;
+    animation: spin-rgb 4s linear infinite;
+  }
+
+  /* Holographic shimmer */
+  .card-front::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.04) 50%, transparent 70%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .card-header {
+    padding: 10px 12px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--ca, var(--cyan));
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .card-type-badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.5rem;
+    padding: 2px 7px;
+    border: 1px solid var(--ca, var(--cyan));
+    color: var(--ca, var(--cyan));
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .card-art {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: rgba(0,0,0,0.35);
+    margin: 6px;
+    border-radius: 4px;
+    z-index: 1;
+  }
+
+  .avatar-art { width: 100%; height: 100%; position: absolute; inset: 0; }
+
+  .card-stars {
+    display: flex;
+    gap: 2px;
+    padding: 4px 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .star { font-size: 0.6rem; color: rgba(255,255,255,0.15); }
+  .star.lit { color: var(--cb, var(--gold)); text-shadow: 0 0 6px currentColor; }
+
+  .card-stats {
+    padding: 8px 12px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat { text-align: center; }
+  .stat-label { font-size: 0.48rem; font-family: 'Share Tech Mono', monospace; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.1em; display: block; }
+  .stat-value { font-family: 'Orbitron', monospace; font-size: 0.85rem; font-weight: 700; color: var(--ca, var(--cyan)); }
+
+  .card-lore {
+    padding: 7px 12px 8px;
+    font-size: 0.58rem;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Share Tech Mono', monospace;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-footer {
+    padding: 6px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.3);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-id { font-family: 'Share Tech Mono', monospace; font-size: 0.5rem; color: rgba(255,255,255,0.2); }
+  .card-rarity { font-family: 'Share Tech Mono', monospace; font-size: 0.5rem; color: var(--cb, var(--gold)); letter-spacing: 0.1em; }
+
+  /* Card back */
+  .card-back {
+    background: linear-gradient(145deg, #0a0818, #140d2e);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card-back::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 14px;
+    background: conic-gradient(from var(--angle, 0deg), #ff006e, #9b59ff, #00f5ff, #39ff14, #ff006e);
+    z-index: -1;
+    animation: spin-rgb 4s linear infinite;
+  }
+
+  .back-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.62rem;
+    color: var(--cyan);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .back-lore-full {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.57rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.6);
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .back-skills { display: flex; flex-wrap: wrap; gap: 4px; }
+
+  .skill-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.48rem;
+    padding: 2px 6px;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.4);
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+
+  .back-gender-badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.5rem;
+    color: rgba(155,89,255,0.6);
+    letter-spacing: 0.1em;
+  }
+
+  .back-logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.48rem;
+    color: rgba(255,255,255,0.1);
+    text-align: center;
+    letter-spacing: 0.25em;
+  }
+
+  /* Loading */
+  .generating {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--cyan);
+    letter-spacing: 0.15em;
+    padding: 12px;
+  }
+
+  .generating.active { display: flex; }
+
+  .pulse-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--cyan);
+    animation: pulse 1s ease-in-out infinite;
+  }
+
+  .pulse-dot:nth-child(2) { animation-delay: 0.2s; background: var(--violet); }
+  .pulse-dot:nth-child(3) { animation-delay: 0.4s; background: var(--pink); }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  .empty-state {
+    width: 100%;
+    max-width: 340px;
+    aspect-ratio: 2.5 / 3.5;
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--muted);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .empty-icon { font-size: 2.5rem; opacity: 0.3; }
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+
+  .scanline {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0,245,255,0.3), transparent);
+    animation: scanline 4s linear infinite;
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  .btn-download {
+    padding: 10px 24px;
+    background: transparent;
+    border: 1px solid var(--violet);
+    color: var(--violet);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    display: none;
+  }
+
+  .btn-download:hover { background: var(--violet); color: var(--bg); }
+  .btn-download.visible { display: block; }
+
+  .flip-tip {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    display: none;
+  }
+
+  .flip-tip.visible { display: block; }
+
+  /* Attribution footer */
+  .site-footer {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+  }
+
+  .site-footer a { color: var(--violet); text-decoration: none; }
+  .site-footer a:hover { color: var(--cyan); }
+
+  /* API Key input */
+  .key-wrap { display: flex; gap: 8px; }
+  .key-wrap input { flex: 1; }
+
+  .btn-key-vis {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 10px 12px;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    border-radius: 2px;
+    transition: border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .btn-key-vis:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  .key-hint {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    margin-top: 5px;
+    opacity: 0.6;
+  }
+  .key-hint a { color: var(--violet); text-decoration: none; }
+  .key-hint a:hover { color: var(--cyan); }
+
+  .key-error {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--pink);
+    margin-top: 5px;
+    display: none;
+  }
+  .key-error.visible { display: block; }
+  .key-error a { color: var(--pink); }
+
+  @media (max-width: 768px) {
+    .container { grid-template-columns: 1fr; }
+    .row-2, .row-3 { grid-template-columns: 1fr; }
+  }
+
+  /* Disclaimer */
+  .disclaimer {
+    grid-column: 1 / -1;
+    background: rgba(255, 149, 0, 0.06);
+    border: 1px solid rgba(255, 149, 0, 0.25);
+    border-left: 3px solid #ff9500;
+    padding: 14px 20px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+  }
+  .disclaimer-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: #ff9500;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .disclaimer p {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    line-height: 1.7;
+    color: rgba(224, 215, 255, 0.7);
+    margin: 0;
+  }
+  .disclaimer a { color: #ff9500; text-decoration: none; }
+  .disclaimer a:hover { color: var(--cyan); }
+  .disclaimer strong { color: rgba(224, 215, 255, 0.95); }
+
+  /* Demo button */
+  .btn-demo {
+    width: 100%;
+    margin-top: 8px;
+    padding: 11px;
+    background: transparent;
+    border: 1px solid var(--muted);
+    color: var(--muted);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-demo:hover {
+    border-color: var(--violet);
+    color: var(--violet);
+    box-shadow: 0 0 20px rgba(155, 89, 255, 0.15);
+  }
+
+  @media print {
+    body { background: #000; }
+    body::before, .scanline, .form-panel, header, .site-footer,
+    .preview-label, .flip-tip, .btn-download { display: none !important; }
+    .container { display: block; }
+    .preview-panel { display: flex; align-items: center; justify-content: center; height: 100vh; }
+    .card-wrap { max-width: 320px; }
+    .card { transform: none !important; }
+    .card-back { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<div class="container">
+
+  <header>
+    <h1>RGB CHARACTER</h1>
+    <p>// Cyber Role Card Generator — Create Your Legend</p>
+  </header>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <span class="disclaimer-label">// readme.first</span>
+    <p>
+      <strong>Cards use stylized vector art</strong> — not photorealistic or anime illustrations.
+      AI lore generation requires a paid <a href="https://console.anthropic.com" target="_blank">Anthropic API key</a> (your key, never stored on any server).
+      No key? Use <strong>Demo Mode</strong> — pre-crafted lore, no account needed.
+    </p>
+  </div>
+
+  <!-- FORM PANEL -->
+  <div class="form-panel">
+    <h2>// Card Configuration</h2>
+
+    <div class="field">
+      <label>Anthropic API Key <span style="color:var(--border);font-size:0.6rem">(stored in browser — never sent elsewhere)</span></label>
+      <div class="key-wrap">
+        <input type="password" id="api-key" placeholder="sk-ant-api03-..." autocomplete="off" oninput="clearKeyError()">
+        <button class="btn-key-vis" onclick="toggleKey()" type="button">SHOW</button>
+      </div>
+      <div class="key-error" id="key-error">⚠ API key required — <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div>
+      <div class="key-hint">Get a key → <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div>
+    </div>
+
+    <div class="field">
+      <label>Character Name / Handle</label>
+      <input type="text" id="char-name" placeholder="e.g. NullByte_V, XenoByte, Ph4ntom..." maxlength="28">
+    </div>
+
+    <div class="field">
+      <label>Gender / Presentation</label>
+      <div class="gender-group" id="gender-group">
+        <div class="gender-pill active" data-value="female" onclick="selectGender(this)">♀ Female</div>
+        <div class="gender-pill" data-value="male" onclick="selectGender(this)">♂ Male</div>
+        <div class="gender-pill" data-value="non-binary" onclick="selectGender(this)">⚧ Non-Binary</div>
+        <div class="gender-pill" data-value="android" onclick="selectGender(this)">◈ Android</div>
+        <div class="gender-pill" data-value="unknown" onclick="selectGender(this)">? Unknown</div>
+      </div>
+    </div>
+
+    <div class="row-2">
+      <div class="field">
+        <label>Art Style</label>
+        <select id="style">
+          <option value="cyberpunk">Cyberpunk</option>
+          <option value="anime">Anime</option>
+          <option value="chibi">Chibi</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Cyber Role</label>
+        <select id="role">
+          <option value="Threat Hunter">Threat Hunter</option>
+          <option value="SOC Analyst">SOC Analyst</option>
+          <option value="Red Team Operator">Red Team Operator</option>
+          <option value="Malware Analyst">Malware Analyst</option>
+          <option value="Threat Intelligence">Threat Intelligence</option>
+          <option value="Detection Engineer">Detection Engineer</option>
+          <option value="Incident Responder">Incident Responder</option>
+          <option value="Pentest Specialist">Pentest Specialist</option>
+          <option value="OSINT Specialist">OSINT Specialist</option>
+          <option value="Cloud Security">Cloud Security</option>
+          <option value="AppSec Engineer">AppSec Engineer</option>
+          <option value="CISO">CISO</option>
+          <option value="Bug Bounty Hunter">Bug Bounty Hunter</option>
+          <option value="Cryptographer">Cryptographer</option>
+          <option value="Digital Forensics">Digital Forensics</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row-2">
+      <div class="field">
+        <label>Years of Experience</label>
+        <select id="years">
+          <option value="1">1 yr — Initiate</option>
+          <option value="3">3 yrs — Apprentice</option>
+          <option value="5">5 yrs — Specialist</option>
+          <option value="8">8 yrs — Expert</option>
+          <option value="10">10+ yrs — Elite</option>
+          <option value="15">15+ yrs — Legend</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Base of Operations</label>
+        <select id="place">
+          <option value="a neon-drenched SOC war room">SOC War Room</option>
+          <option value="a dark web intelligence hub">Dark Web Intel Hub</option>
+          <option value="an underground red team lab">Red Team Lab</option>
+          <option value="a high-altitude satellite station">Satellite Station</option>
+          <option value="a corporate cyber fortress">Corporate Citadel</option>
+          <option value="a ghost network node">Ghost Network Node</option>
+          <option value="a mobile command drone">Mobile Command Drone</option>
+          <option value="deep inside the threat landscape">The Threat Landscape</option>
+          <option value="a blockchain-encrypted vault">Crypto Vault</option>
+          <option value="a rogue submarine data center">Submarine Data Center</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Physical / Persona Traits</label>
+      <textarea id="traits" placeholder="e.g. hooded, glowing eyes, mechanical arm, always has coffee, twin katanas, cat companion..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Origin Story Hint <span style="color:var(--border);font-size:0.6rem">(optional — AI will invent if empty)</span></label>
+      <textarea id="lore-hint" placeholder="e.g. former chef turned hacker, survived the 2031 breach, defected from MegaCorp..."></textarea>
+    </div>
+
+    <button class="btn-generate" id="btn-gen" onclick="generateCard()">
+      ⚡ Generate My Card
+    </button>
+    <button class="btn-demo" id="btn-demo" onclick="generateDemo()">
+      🎲 Demo Mode — No API Key Needed
+    </button>
+  </div>
+
+  <!-- PREVIEW PANEL -->
+  <div class="preview-panel">
+    <span class="preview-label">// Card Preview</span>
+
+    <div id="empty-state" class="empty-state">
+      <div class="empty-icon">🃏</div>
+      <div>Configure your character<br>and generate your card</div>
+      <div style="font-size:0.52rem;opacity:0.4;margin-top:4px">hover card to flip &amp; read full lore</div>
+    </div>
+
+    <div class="card-wrap" id="card-wrap" style="display:none">
+      <div class="card" id="the-card">
+        <div class="card-front" id="card-front"></div>
+        <div class="card-back" id="card-back"></div>
+      </div>
+    </div>
+
+    <div class="generating" id="gen-status">
+      <div class="pulse-dot"></div>
+      <div class="pulse-dot"></div>
+      <div class="pulse-dot"></div>
+      <span id="gen-text">GENERATING CHARACTER...</span>
+    </div>
+
+    <div class="flip-tip" id="flip-tip">// hover card to reveal full lore</div>
+    <button class="btn-download" id="btn-dl" onclick="downloadCard()">↓ Save Card</button>
+  </div>
+
+  <footer class="site-footer">
+    RGB CHARACTER CARD GENERATOR — by <a href="https://github.com/thegr8val" target="_blank">thegr8val</a> — open source on GitHub
+  </footer>
+
+</div>
+
+<script>
+// ─── API Key ──────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('tgv_rgbcard_key');
+  if (saved) document.getElementById('api-key').value = saved;
+});
+
+function toggleKey() {
+  const el = document.getElementById('api-key');
+  el.type = el.type === 'password' ? 'text' : 'password';
+}
+
+function clearKeyError() {
+  document.getElementById('key-error').classList.remove('visible');
+}
+
+// ─── Gender selection ─────────────────────────────────────────────────────────
+let selectedGender = 'female';
+
+function selectGender(el) {
+  document.querySelectorAll('.gender-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  selectedGender = el.dataset.value;
+}
+
+// ─── Avatar SVGs — distinct silhouettes per gender ───────────────────────────
+function getAvatarSVG(style, role, gender) {
+  const accents = {
+    cyberpunk: { a: '#00f5ff', b: '#39ff14', glow: '#00f5ff22' },
+    anime:     { a: '#ff006e', b: '#ffd700', glow: '#ff006e22' },
+    chibi:     { a: '#ff69b4', b: '#b667ff', glow: '#ff69b422' }
+  };
+  const c = accents[style] || accents.cyberpunk;
+
+  // Shared defs block
+  const defs = `<defs>
+    <radialGradient id="rg" cx="50%" cy="55%" r="55%">
+      <stop offset="0%" stop-color="${c.glow}"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <filter id="gf" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="gf2" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>`;
+
+  // HUD overlays (shared)
+  const hud = `
+    <line x1="18" y1="100" x2="55" y2="100" stroke="${c.a}" stroke-width="1" opacity="0.4"/>
+    <line x1="145" y1="100" x2="182" y2="100" stroke="${c.a}" stroke-width="1" opacity="0.4"/>
+    <circle cx="18" cy="100" r="3" fill="${c.a}" opacity="0.6" filter="url(#gf)"/>
+    <circle cx="182" cy="100" r="3" fill="${c.a}" opacity="0.6" filter="url(#gf)"/>
+    <path d="M22,18 L22,30 L34,30" stroke="${c.b}" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <path d="M178,18 L178,30 L166,30" stroke="${c.b}" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <path d="M22,222 L22,210 L34,210" stroke="${c.b}" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <path d="M178,222 L178,210 L166,210" stroke="${c.b}" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <rect x="38" y="216" width="124" height="1" fill="${c.b}" opacity="0.25"/>
+    <rect x="52" y="221" width="96" height="1" fill="${c.b}" opacity="0.15"/>`;
+
+  // Scan lines on face
+  const scanlines = `
+    <line x1="68" y1="88" x2="132" y2="88" stroke="${c.a}" stroke-width="0.5" opacity="0.18"/>
+    <line x1="68" y1="93" x2="132" y2="93" stroke="${c.a}" stroke-width="0.5" opacity="0.12"/>
+    <line x1="68" y1="108" x2="132" y2="108" stroke="${c.a}" stroke-width="0.5" opacity="0.12"/>`;
+
+  // Build body by gender
+  let body = '';
+
+  if (gender === 'female') {
+    body = `
+      <!-- Background glow -->
+      <ellipse cx="100" cy="155" rx="78" ry="88" fill="url(#rg)"/>
+      <!-- Body — hourglass silhouette -->
+      <path d="M72,135 Q68,155 65,185 Q75,195 100,198 Q125,195 135,185 Q132,155 128,135 Q114,145 100,145 Q86,145 72,135Z"
+        fill="${c.a}" opacity="0.1"/>
+      <path d="M72,135 Q68,155 65,185 Q75,195 100,198 Q125,195 135,185 Q132,155 128,135 Q114,145 100,145 Q86,145 72,135Z"
+        fill="none" stroke="${c.a}" stroke-width="0.8" opacity="0.25"/>
+      <!-- Shoulder armor plates -->
+      <ellipse cx="68" cy="132" rx="14" ry="8" fill="${c.a}" opacity="0.18" transform="rotate(-15,68,132)"/>
+      <ellipse cx="132" cy="132" rx="14" ry="8" fill="${c.a}" opacity="0.18" transform="rotate(15,132,132)"/>
+      <!-- Head -->
+      <circle cx="100" cy="98" r="32" fill="${c.a}" opacity="0.07" stroke="${c.a}" stroke-width="0.8" opacity="0.2"/>
+      <circle cx="100" cy="98" r="26" fill="rgba(0,0,0,0.55)"/>
+      <!-- Hair — long shape hint -->
+      <path d="M74,90 Q70,70 78,55 Q100,45 122,55 Q130,70 126,90" fill="${c.a}" opacity="0.12"/>
+      <path d="M74,95 Q60,120 62,155" stroke="${c.a}" stroke-width="3" fill="none" opacity="0.15"/>
+      <path d="M126,95 Q140,120 138,155" stroke="${c.a}" stroke-width="3" fill="none" opacity="0.15"/>
+      <!-- Eyes — slightly wider set, longer lash shape -->
+      <ellipse cx="88" cy="97" rx="5.5" ry="4" fill="${c.a}" opacity="0.9" filter="url(#gf)"/>
+      <ellipse cx="112" cy="97" rx="5.5" ry="4" fill="${c.a}" opacity="0.9" filter="url(#gf)"/>
+      <line x1="83" y1="93" x2="94" y2="91" stroke="${c.a}" stroke-width="1.2" opacity="0.5"/>
+      <line x1="106" y1="91" x2="117" y2="93" stroke="${c.a}" stroke-width="1.2" opacity="0.5"/>`;
+
+  } else if (gender === 'male') {
+    body = `
+      <!-- Background glow -->
+      <ellipse cx="100" cy="155" rx="78" ry="88" fill="url(#rg)"/>
+      <!-- Body — broader shoulders, rectangular torso -->
+      <path d="M65,130 L60,185 Q75,198 100,200 Q125,198 140,185 L135,130 Q118,142 100,142 Q82,142 65,130Z"
+        fill="${c.a}" opacity="0.1"/>
+      <path d="M65,130 L60,185 Q75,198 100,200 Q125,198 140,185 L135,130 Q118,142 100,142 Q82,142 65,130Z"
+        fill="none" stroke="${c.a}" stroke-width="0.8" opacity="0.25"/>
+      <!-- Broader shoulder armor -->
+      <ellipse cx="63" cy="128" rx="17" ry="9" fill="${c.a}" opacity="0.2" transform="rotate(-10,63,128)"/>
+      <ellipse cx="137" cy="128" rx="17" ry="9" fill="${c.a}" opacity="0.2" transform="rotate(10,137,128)"/>
+      <!-- Chest detail lines -->
+      <line x1="85" y1="150" x2="115" y2="150" stroke="${c.a}" stroke-width="0.8" opacity="0.3"/>
+      <line x1="88" y1="160" x2="112" y2="160" stroke="${c.a}" stroke-width="0.8" opacity="0.2"/>
+      <!-- Head — slightly wider jaw -->
+      <ellipse cx="100" cy="98" rx="30" ry="32" fill="${c.a}" opacity="0.07" stroke="${c.a}" stroke-width="0.8" opacity="0.2"/>
+      <ellipse cx="100" cy="100" rx="25" ry="27" fill="rgba(0,0,0,0.55)"/>
+      <!-- Short hair/head outline -->
+      <path d="M75,90 Q72,65 100,58 Q128,65 125,90" fill="${c.a}" opacity="0.14"/>
+      <!-- Eyes — straighter brow -->
+      <ellipse cx="87" cy="98" rx="5" ry="3.5" fill="${c.a}" opacity="0.9" filter="url(#gf)"/>
+      <ellipse cx="113" cy="98" rx="5" ry="3.5" fill="${c.a}" opacity="0.9" filter="url(#gf)"/>
+      <line x1="82" y1="93" x2="93" y2="93" stroke="${c.a}" stroke-width="1.5" opacity="0.5"/>
+      <line x1="107" y1="93" x2="118" y2="93" stroke="${c.a}" stroke-width="1.5" opacity="0.5"/>
+      <!-- Jaw shadow -->
+      <path d="M80,112 Q100,120 120,112" stroke="${c.a}" stroke-width="0.6" fill="none" opacity="0.15"/>`;
+
+  } else if (gender === 'non-binary') {
+    body = `
+      <!-- Background glow — dual tone -->
+      <ellipse cx="100" cy="155" rx="78" ry="88" fill="url(#rg)"/>
+      <!-- Body — angular, balanced -->
+      <path d="M68,132 L63,183 Q78,197 100,199 Q122,197 137,183 L132,132 Q116,143 100,143 Q84,143 68,132Z"
+        fill="${c.a}" opacity="0.09"/>
+      <path d="M68,132 L63,183 Q78,197 100,199 Q122,197 137,183 L132,132 Q116,143 100,143 Q84,143 68,132Z"
+        fill="none" stroke="${c.b}" stroke-width="0.8" opacity="0.3"/>
+      <!-- Asymmetric shoulder detail -->
+      <ellipse cx="65" cy="130" rx="14" ry="8" fill="${c.b}" opacity="0.2" transform="rotate(-12,65,130)"/>
+      <ellipse cx="135" cy="130" rx="12" ry="7" fill="${c.a}" opacity="0.2" transform="rotate(12,135,130)"/>
+      <!-- Diagonal sash/detail -->
+      <line x1="75" y1="145" x2="125" y2="175" stroke="${c.b}" stroke-width="1.5" opacity="0.25"/>
+      <!-- Head -->
+      <circle cx="100" cy="97" r="30" fill="${c.a}" opacity="0.07" stroke="${c.b}" stroke-width="0.8" opacity="0.25"/>
+      <circle cx="100" cy="97" r="25" fill="rgba(0,0,0,0.55)"/>
+      <!-- Asymmetric hair — one side long, one short -->
+      <path d="M76,88 Q72,65 100,58 Q128,65 126,88" fill="${c.a}" opacity="0.12"/>
+      <path d="M75,92 Q62,118 64,152" stroke="${c.b}" stroke-width="4" fill="none" opacity="0.18"/>
+      <!-- Eyes — one per color -->
+      <ellipse cx="88" cy="97" rx="5" ry="3.8" fill="${c.b}" opacity="0.9" filter="url(#gf)"/>
+      <ellipse cx="112" cy="97" rx="5" ry="3.8" fill="${c.a}" opacity="0.9" filter="url(#gf)"/>
+      <!-- Mixed brows -->
+      <line x1="83" y1="92" x2="94" y2="92" stroke="${c.b}" stroke-width="1.3" opacity="0.5"/>
+      <line x1="106" y1="93" x2="117" y2="91" stroke="${c.a}" stroke-width="1.2" opacity="0.5"/>`;
+
+  } else if (gender === 'android') {
+    body = `
+      <!-- Background glow — hard/geometric -->
+      <ellipse cx="100" cy="155" rx="78" ry="88" fill="url(#rg)"/>
+      <!-- Body — angular chassis -->
+      <polygon points="70,130 60,185 70,200 100,205 130,200 140,185 130,130 116,140 100,140 84,140"
+        fill="${c.a}" opacity="0.1"/>
+      <polygon points="70,130 60,185 70,200 100,205 130,200 140,185 130,130 116,140 100,140 84,140"
+        fill="none" stroke="${c.a}" stroke-width="1" opacity="0.35"/>
+      <!-- Panel lines on body -->
+      <line x1="100" y1="140" x2="100" y2="200" stroke="${c.a}" stroke-width="0.7" opacity="0.25"/>
+      <line x1="75" y1="160" x2="125" y2="160" stroke="${c.a}" stroke-width="0.7" opacity="0.25"/>
+      <line x1="72" y1="178" x2="128" y2="178" stroke="${c.a}" stroke-width="0.7" opacity="0.2"/>
+      <!-- Reactor core -->
+      <circle cx="100" cy="163" r="8" fill="none" stroke="${c.b}" stroke-width="1.5" opacity="0.5" filter="url(#gf)"/>
+      <circle cx="100" cy="163" r="4" fill="${c.b}" opacity="0.6" filter="url(#gf2)"/>
+      <!-- Mechanical shoulders -->
+      <rect x="50" y="122" width="20" height="12" rx="2" fill="${c.a}" opacity="0.25" stroke="${c.a}" stroke-width="0.7" opacity="0.4"/>
+      <rect x="130" y="122" width="20" height="12" rx="2" fill="${c.a}" opacity="0.25" stroke="${c.a}" stroke-width="0.7" opacity="0.4"/>
+      <!-- Head — square/angular -->
+      <rect x="72" y="68" width="56" height="58" rx="6" fill="${c.a}" opacity="0.08" stroke="${c.a}" stroke-width="1" opacity="0.3"/>
+      <rect x="78" y="74" width="44" height="46" rx="4" fill="rgba(0,0,0,0.6)"/>
+      <!-- Eyes — LED bar style -->
+      <rect x="83" y="93" width="12" height="5" rx="2" fill="${c.a}" opacity="0.95" filter="url(#gf)"/>
+      <rect x="105" y="93" width="12" height="5" rx="2" fill="${c.a}" opacity="0.95" filter="url(#gf)"/>
+      <!-- Antenna -->
+      <line x1="100" y1="68" x2="100" y2="52" stroke="${c.b}" stroke-width="1.5" opacity="0.6" filter="url(#gf)"/>
+      <circle cx="100" cy="50" r="3" fill="${c.b}" opacity="0.8" filter="url(#gf2)"/>
+      <!-- Mouth — data readout line -->
+      <rect x="86" y="108" width="28" height="3" rx="1" fill="${c.a}" opacity="0.3"/>
+      <!-- Serial number -->
+      <text x="100" y="120" font-family="monospace" font-size="5" fill="${c.b}" text-anchor="middle" opacity="0.4">SN-7X-0042</text>`;
+
+  } else {
+    // unknown / mystery
+    body = `
+      <!-- Background glow — deep purple -->
+      <ellipse cx="100" cy="155" rx="78" ry="88" fill="url(#rg)"/>
+      <!-- Shrouded body — cloak shape -->
+      <path d="M60,125 Q50,160 48,200 Q72,210 100,212 Q128,210 152,200 Q150,160 140,125 Q120,138 100,138 Q80,138 60,125Z"
+        fill="${c.a}" opacity="0.08"/>
+      <path d="M60,125 Q50,160 48,200 Q72,210 100,212 Q128,210 152,200 Q150,160 140,125 Q120,138 100,138 Q80,138 60,125Z"
+        fill="none" stroke="${c.a}" stroke-width="0.8" opacity="0.2"/>
+      <!-- Floating particles/mystery elements -->
+      <circle cx="65" cy="150" r="2" fill="${c.b}" opacity="0.4" filter="url(#gf)"/>
+      <circle cx="140" cy="165" r="2" fill="${c.b}" opacity="0.4" filter="url(#gf)"/>
+      <circle cx="72" cy="175" r="1.5" fill="${c.a}" opacity="0.3" filter="url(#gf)"/>
+      <circle cx="133" cy="148" r="1.5" fill="${c.a}" opacity="0.3" filter="url(#gf)"/>
+      <!-- Head — obscured with shadow -->
+      <circle cx="100" cy="97" r="33" fill="${c.a}" opacity="0.05" stroke="${c.a}" stroke-width="0.6" opacity="0.15"/>
+      <circle cx="100" cy="97" r="27" fill="rgba(0,0,0,0.75)"/>
+      <!-- Hood shadow overlay -->
+      <ellipse cx="100" cy="80" rx="28" ry="18" fill="rgba(0,0,0,0.5)"/>
+      <!-- Eyes — single narrow slit or question mark glow -->
+      <ellipse cx="100" cy="98" rx="18" ry="3" fill="${c.a}" opacity="0.15" filter="url(#gf)"/>
+      <ellipse cx="100" cy="98" rx="8" ry="2.5" fill="${c.a}" opacity="0.6" filter="url(#gf2)"/>
+      <!-- Question mark overlay -->
+      <text x="100" y="103" font-family="monospace" font-size="14" fill="${c.a}" text-anchor="middle" opacity="0.08" font-weight="bold">?</text>`;
+  }
+
+  // Role-specific accessory overlaid on top
+  const roleAccs = {
+    'Red Team Operator':   `<rect x="84" y="48" width="32" height="7" rx="2" fill="${c.a}" opacity="0.5" filter="url(#gf)"/>`,
+    'CISO':                `<polygon points="100,42 108,56 92,56" fill="${c.b}" opacity="0.5" filter="url(#gf)"/>`,
+    'Malware Analyst':     `<text x="100" y="52" font-family="monospace" font-size="9" fill="${c.a}" text-anchor="middle" opacity="0.6">01010</text>`,
+    'Bug Bounty Hunter':   `<circle cx="100" cy="50" r="6" fill="none" stroke="${c.b}" stroke-width="2" opacity="0.6" filter="url(#gf)"/>
+                            <text x="100" y="54" font-family="monospace" font-size="7" fill="${c.b}" text-anchor="middle" opacity="0.7">$</text>`,
+    'Cryptographer':       `<text x="100" y="54" font-family="monospace" font-size="8" fill="${c.b}" text-anchor="middle" opacity="0.55">⌘ ⚿</text>`,
+    'Digital Forensics':   `<rect x="88" y="45" width="24" height="14" rx="2" fill="none" stroke="${c.a}" stroke-width="1" opacity="0.5"/>
+                            <line x1="92" y1="52" x2="108" y2="52" stroke="${c.a}" stroke-width="0.8" opacity="0.4"/>`,
+  };
+
+  const acc = roleAccs[role] ? `<g filter="url(#gf)">${roleAccs[role]}</g>` : '';
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" class="avatar-art">
+    ${defs}
+    ${body}
+    ${scanlines}
+    ${acc}
+    ${hud}
+  </svg>`;
+}
+
+// ─── Stats ────────────────────────────────────────────────────────────────────
+function deriveStats(role, years) {
+  const base = parseInt(years);
+  const roleStats = {
+    'Threat Hunter':      { atk: 80, def: 65, int: 90 },
+    'SOC Analyst':        { atk: 60, def: 80, int: 75 },
+    'Red Team Operator':  { atk: 95, def: 55, int: 80 },
+    'Malware Analyst':    { atk: 70, def: 60, int: 95 },
+    'Threat Intelligence':{ atk: 55, def: 70, int: 95 },
+    'Detection Engineer': { atk: 65, def: 85, int: 90 },
+    'Incident Responder': { atk: 75, def: 90, int: 80 },
+    'Pentest Specialist': { atk: 95, def: 50, int: 85 },
+    'OSINT Specialist':   { atk: 60, def: 75, int: 95 },
+    'Cloud Security':     { atk: 65, def: 90, int: 85 },
+    'AppSec Engineer':    { atk: 80, def: 75, int: 90 },
+    'CISO':               { atk: 70, def: 95, int: 95 },
+    'Bug Bounty Hunter':  { atk: 90, def: 50, int: 88 },
+    'Cryptographer':      { atk: 55, def: 85, int: 99 },
+    'Digital Forensics':  { atk: 60, def: 80, int: 92 },
+  };
+  const s = roleStats[role] || { atk: 70, def: 70, int: 70 };
+  const scale = v => Math.min(Math.round(v * (0.7 + base * 0.03)), 99);
+  return { atk: scale(s.atk), def: scale(s.def), int: scale(s.int) };
+}
+
+function getStars(years) {
+  const y = parseInt(years);
+  if (y <= 1) return 1; if (y <= 3) return 2;
+  if (y <= 5) return 3; if (y <= 8) return 4;
+  return 5;
+}
+
+function getRarity(years) {
+  const y = parseInt(years);
+  if (y <= 1) return 'COMMON';   if (y <= 3) return 'RARE';
+  if (y <= 5) return 'EPIC';     if (y <= 8) return 'LEGENDARY';
+  return '◈ MYTHIC ◈';
+}
+
+function genderLabel(g) {
+  const map = { female: '♀ Female', male: '♂ Male', 'non-binary': '⚧ Non-Binary', android: '◈ Android', unknown: '? Unknown' };
+  return map[g] || g;
+}
+
+// ─── GENERATE ─────────────────────────────────────────────────────────────────
+async function generateCard() {
+  const name     = document.getElementById('char-name').value.trim() || 'UNKNOWN_ENTITY';
+  const style    = document.getElementById('style').value;
+  const role     = document.getElementById('role').value;
+  const years    = document.getElementById('years').value;
+  const place    = document.getElementById('place').value;
+  const traits   = document.getElementById('traits').value.trim();
+  const loreHint = document.getElementById('lore-hint').value.trim();
+  const gender   = selectedGender;
+
+  const apiKey = document.getElementById('api-key').value.trim();
+  if (!apiKey) {
+    document.getElementById('key-error').classList.add('visible');
+    document.getElementById('api-key').focus();
+    return;
+  }
+  localStorage.setItem('tgv_rgbcard_key', apiKey);
+
+  const btn = document.getElementById('btn-gen');
+  btn.disabled = true;
+
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('card-wrap').style.display = 'none';
+  document.getElementById('gen-status').classList.add('active');
+  document.getElementById('flip-tip').classList.remove('visible');
+  document.getElementById('btn-dl').classList.remove('visible');
+
+  const statusTexts = ['GENERATING CHARACTER...','COMPILING THREAT PROFILE...','LOADING LORE DATABASE...','RENDERING CARD...'];
+  let si = 0;
+  const statusInterval = setInterval(() => {
+    si = (si + 1) % statusTexts.length;
+    document.getElementById('gen-text').textContent = statusTexts[si];
+  }, 1800);
+
+  const toneMap = { cyberpunk: 'dark, gritty, cyber-noir', anime: 'dramatic, heroic, emotional', chibi: 'cute, playful, kawaii' };
+  const pronounMap = { female: 'she/her', male: 'he/him', 'non-binary': 'they/them', android: 'it/unit', unknown: 'they/them (shrouded in mystery)' };
+
+  const prompt = `You are a cyberpunk trading card lore writer. Generate a profile for this character:
+
+NAME: ${name}
+GENDER: ${gender} (pronouns: ${pronounMap[gender]})
+ART STYLE TONE: ${toneMap[style]}
+CYBER ROLE: ${role}
+YEARS OF EXPERIENCE: ${years}
+BASE OF OPERATIONS: ${place}
+PHYSICAL/PERSONA TRAITS: ${traits || 'invent something memorable for this gender and role'}
+LORE HINT: ${loreHint || 'create an original origin story that fits the gender and style'}
+
+RULES:
+- Use the correct pronouns for this character throughout
+- If gender is "android", treat as a sentient AI with unit designation
+- If gender is "unknown", make them mysterious and shadowy — never confirm pronouns
+- Tone must match the art style (${toneMap[style]})
+
+Respond ONLY with valid JSON, no markdown:
+{
+  "lore_short": "1 sentence front-of-card teaser (max 120 chars, correct pronouns)",
+  "lore_full": "3-4 sentences origin + current mission. Correct pronouns throughout.",
+  "skills": ["skill1","skill2","skill3","skill4","skill5"],
+  "title": "unique 2-3 word epithet (e.g. The Phantom Blade, Ghost Analyst)",
+  "card_id": "3-letter prefix + 4 digits (e.g. DCO-7842)"
+}`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      if (response.status === 401) throw new Error('Invalid API key');
+      throw new Error(errData.error?.message || `API error ${response.status}`);
+    }
+    const data = await response.json();
+    const raw = data.content?.[0]?.text || '{}';
+    const card = JSON.parse(raw.replace(/```json|```/g, '').trim());
+
+    clearInterval(statusInterval);
+    renderCard({ name, style, role, years, place, gender, ...card });
+
+  } catch (err) {
+    clearInterval(statusInterval);
+    console.error(err);
+    renderCard({
+      name, style, role, years, place, gender,
+      lore_short: `Operative ${name} — shadow of the digital frontier.`,
+      lore_full: `From the encrypted depths of ${place}, ${name} built a legend across ${years} years as a ${role}. Their origins remain classified, their methods — unstoppable.`,
+      skills: ['KQL','OSINT','TI','Detection','Hunting'],
+      title: 'The Digital Ghost',
+      card_id: 'RGB-' + Math.floor(Math.random()*9000+1000)
+    });
+  }
+
+  document.getElementById('gen-status').classList.remove('active');
+  btn.disabled = false;
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderCard(data) {
+  const stats  = deriveStats(data.role, data.years);
+  const stars  = getStars(data.years);
+  const rarity = getRarity(data.years);
+  const avatar = getAvatarSVG(data.style, data.role, data.gender);
+
+  const starsHTML = Array.from({length:5},(_,i) =>
+    `<span class="star${i < stars ? ' lit' : ''}">★</span>`).join('');
+
+  const skillsHTML = (data.skills||[]).map(s =>
+    `<span class="skill-tag">${s}</span>`).join('');
+
+  document.getElementById('card-front').className = `card-front ${data.style}`;
+  document.getElementById('card-front').innerHTML = `
+    <div class="card-header">
+      <div class="card-name">${data.name}</div>
+      <div class="card-type-badge">${data.role}</div>
+    </div>
+    <div class="card-stars">${starsHTML}</div>
+    <div class="card-art">${avatar}</div>
+    <div class="card-stats">
+      <div class="stat"><span class="stat-label">ATK</span><span class="stat-value">${stats.atk}</span></div>
+      <div class="stat"><span class="stat-label">DEF</span><span class="stat-value">${stats.def}</span></div>
+      <div class="stat"><span class="stat-label">INT</span><span class="stat-value">${stats.int}</span></div>
+    </div>
+    <div class="card-lore">${data.lore_short||''}</div>
+    <div class="card-footer">
+      <span class="card-id">${data.card_id||'RGB-0000'}</span>
+      <span class="card-rarity">${rarity}</span>
+    </div>`;
+
+  document.getElementById('card-back').innerHTML = `
+    <div class="back-title">// ${data.title||data.name} — CLASSIFIED FILE</div>
+    <div class="back-lore-full">${data.lore_full||''}</div>
+    <div class="back-skills">${skillsHTML}</div>
+    <div class="back-gender-badge">${genderLabel(data.gender)} · ${data.role}</div>
+    <div class="back-logo">RGB CHARACTER CARD — thegr8val</div>`;
+
+  document.getElementById('card-wrap').style.display = 'flex';
+  document.getElementById('card-wrap').style.justifyContent = 'center';
+  document.getElementById('flip-tip').classList.add('visible');
+  document.getElementById('btn-dl').classList.add('visible');
+}
+
+function downloadCard() {
+  window.print();
+}
+
+// ─── DEMO MODE ────────────────────────────────────────────────────────────────
+function generateDemo() {
+  const name   = document.getElementById('char-name').value.trim() || 'PHANTOM';
+  const style  = document.getElementById('style').value;
+  const role   = document.getElementById('role').value;
+  const years  = document.getElementById('years').value;
+  const place  = document.getElementById('place').value;
+  const gender = selectedGender;
+
+  const pMap = {
+    female:       ['she','her','her','She','Her'],
+    male:         ['he','him','his','He','His'],
+    'non-binary': ['they','them','their','They','Their'],
+    android:      ['it','it','its','It','Its'],
+    unknown:      ['they','them','their','They','Their'],
+  };
+  const p = pMap[gender] || pMap.unknown;
+
+  const loreMap = {
+    'Threat Hunter': {
+      short: `${name} tracks ghosts in the noise — and ${p[0]} never loses the trail.`,
+      full:  `After ${years} years hunting adversaries across ${place}, ${name} developed a sixth sense for patterns that shouldn't exist. ${p[3]} doesn't wait for alerts — ${p[0]} lives three steps ahead of them. ${p[4]} kill chain analysis has dismantled APT groups that intelligence agencies didn't even know existed. Today ${name} operates where the hunt never ends.`,
+      skills: ['Threat Hunting','IOC Analysis','MITRE ATT&CK','YARA Rules','Behavioral Analytics'],
+      title: 'The Silent Pursuit',
+    },
+    'SOC Analyst': {
+      short: `${name} has seen every alert. ${p[3]} only cares about the ones that matter.`,
+      full:  `${name} built ${p[2]} instincts across ${years} years of relentless triage inside ${place}. ${p[3]} processes thousands of signals per shift without missing the one that kills. Colleagues call ${p[1]} the false-positive filter — adversaries call ${p[1]} the reason their campaigns fail. When the dashboard turns red, ${name} is already three steps in.`,
+      skills: ['SIEM Triage','Log Analysis','Alert Correlation','Incident Triage','Playbook Execution'],
+      title: 'The Watchful Eye',
+    },
+    'Red Team Operator': {
+      short: `${name} doesn't find vulnerabilities. ${p[3]} finds the assumptions that create them.`,
+      full:  `${years} years inside ${place} taught ${name} that every defense has a blind spot. ${p[3]} doesn't break systems — ${p[0]} breaks the mental models that built them. ${p[4]} engagements have forced complete security architecture rewrites. Red is just a color to most people. To ${name}, it's a philosophy.`,
+      skills: ['Adversary Simulation','C2 Operations','Phishing Campaigns','Lateral Movement','OPSEC'],
+      title: 'The Architect of Chaos',
+    },
+    'Malware Analyst': {
+      short: `${name} speaks binary. The malware always confesses eventually.`,
+      full:  `Raised on disassemblers and debuggers, ${name} spent ${years} years inside ${place} reverse-engineering code that was never meant to be understood. ${p[3]} finds intent in opcodes, backstory in obfuscation layers. The most dangerous samples get flagged to ${p[1]} first — because everyone else is afraid to open them. ${name} is not.`,
+      skills: ['Reverse Engineering','Dynamic Analysis','IDA Pro','FLOSS','Sandbox Evasion'],
+      title: 'The Code Whisperer',
+    },
+    'Threat Intelligence': {
+      short: `${name} connects dots that don't exist yet.`,
+      full:  `${name} has spent ${years} years inside ${place} turning noise into narrative. ${p[3]} tracks threat actors the way others track weather — reading patterns, predicting landfall. ${p[4]} attribution reports have triggered responses that never got attributed back to ${p[1]}. The best intelligence is invisible. So is ${name}.`,
+      skills: ['Actor Tracking','Diamond Model','STIX/TAXII','CTI Platforms','HUMINT Fusion'],
+      title: 'The Oracle',
+    },
+    'Detection Engineer': {
+      short: `${name} writes the rules that catch what everyone else misses.`,
+      full:  `Every detection ${name} builds inside ${place} is a thesis — tested against ${years} years of adversary behavior. ${p[3]} doesn't chase alerts; ${p[0]} designs the logic that makes them inevitable. ${p[4]} detection coverage maps have zero dead zones. The adversaries who evade automated systems still leave traces that ${name} already anticipated.`,
+      skills: ['Sigma Rules','KQL','YARA','Detection-as-Code','ATT&CK Coverage'],
+      title: 'The Rule Forger',
+    },
+    'Incident Responder': {
+      short: `${name} arrives when everything is on fire — and leaves with answers.`,
+      full:  `${name} has run ${years} years of incident response out of ${place}, developing a calm that unnerves both attackers and clients. ${p[3]} doesn't panic at breaches — ${p[0]} reads them like crime scenes. ${p[4]} containment decisions have saved organizations that were hours from collapse. The chaos is the data. ${name} just knows how to read it.`,
+      skills: ['Digital Forensics','Memory Analysis','Containment','Chain of Custody','Timeline Analysis'],
+      title: 'The First Responder',
+    },
+    'Pentest Specialist': {
+      short: `${name} gets paid to break things. ${p[3]}'s very good at the job.`,
+      full:  `From ${place}, ${name} has spent ${years} years finding paths through systems certified as secure. ${p[3]} approaches every engagement as a puzzle where the prize is humiliating a compliance report. ${p[4]} findings have caused emergency patches across multiple vendors. The report is the weapon. ${name} just loads it.`,
+      skills: ['Web App Testing','Network Pentesting','Social Engineering','Exploit Dev','Report Writing'],
+      title: 'The Certified Breaker',
+    },
+    'OSINT Specialist': {
+      short: `${name} finds what you thought you deleted years ago.`,
+      full:  `${name} operates out of ${place}, mining open sources with ${years} years of practiced patience. ${p[3]} has traced aliases across a dozen platforms, reconstructed identities from metadata fragments, and mapped infrastructure from a single leaked IP. ${p[4]} research has never been wrong — only early. What's public is just what ${name} hasn't used yet.`,
+      skills: ['OSINT Framework','Maltego','Metadata Analysis','Sock Puppets','Geolocation'],
+      title: 'The Digital Archaeologist',
+    },
+    'Cloud Security': {
+      short: `${name} knows your cloud misconfiguration before you do.`,
+      full:  `After ${years} years hardening infrastructure inside ${place}, ${name} understands that the cloud is just someone else's computer — with worse default settings. ${p[3]} has remediated hundreds of critical misconfigurations before they became breaches. ${p[4]} architecture reviews are feared for their thoroughness and respected for being right every time.`,
+      skills: ['AWS/Azure/GCP','IAM Hardening','CSPM','Container Security','Terraform'],
+      title: 'The Cloud Warden',
+    },
+    'AppSec Engineer': {
+      short: `${name} reads code the way others read crime scenes.`,
+      full:  `${name} embedded with dev teams inside ${place} for ${years} years, learning to spot vulnerabilities at the design stage — before a single line gets committed. ${p[3]} doesn't just find bugs; ${p[0]} redesigns the thinking that creates them. ${p[4]} threat models have shifted entire product roadmaps. Secure by default is ${p[2]} only standard.`,
+      skills: ['SAST/DAST','Threat Modeling','Code Review','OWASP','Secure SDLC'],
+      title: 'The Code Auditor',
+    },
+    'CISO': {
+      short: `${name} turns security into strategy. The board finally listens.`,
+      full:  `${name} built ${p[2]} reputation across ${years} years navigating the intersection of risk and politics inside ${place}. ${p[3]} speaks breach in the boardroom and budget in the SOC. ${p[4]} security programs have survived acquisitions, regulatory audits, and nation-state intrusions. Leadership is just threat modeling with humans.`,
+      skills: ['Risk Management','GRC','Executive Communication','Security Architecture','Budget Allocation'],
+      title: 'The Executive Operator',
+    },
+    'Bug Bounty Hunter': {
+      short: `${name} hunts bugs professionally. The programs have learned to fear ${p[2]} reports.`,
+      full:  `${name} runs ${p[2]} operation solo out of ${place}, ${years} years deep into the vulnerability research grind. ${p[3]} doesn't do surface-level finds — ${p[4]} reports are chained primitives with full PoC. Three critical CVEs bear ${p[2]} fingerprints. The bounty is the score, but the finding is the art. ${name} makes both look easy.`,
+      skills: ['Web Hacking','API Security','Chain Exploitation','CVE Research','Responsible Disclosure'],
+      title: 'The Bounty Phantom',
+    },
+    'Cryptographer': {
+      short: `${name} breaks ciphers for sport. ${p[3]} designs them for protection.`,
+      full:  `Trained in the abstract and deployed in the practical, ${name} has spent ${years} years inside ${place} probing the mathematical foundations of trust. ${p[3]} found a timing side-channel in a library used by millions of devices and quietly got it patched before anyone knew to look. The math doesn't lie. Neither does ${name}.`,
+      skills: ['Applied Cryptography','Side-Channel Analysis','Protocol Design','PKI','Zero-Knowledge Proofs'],
+      title: 'The Cipher Architect',
+    },
+    'Digital Forensics': {
+      short: `${name} reads deleted files like open books.`,
+      full:  `${name} processes evidence inside ${place} with ${years} years of forensic precision. ${p[3]} has reconstructed timelines from corrupted drives, recovered keys from volatile memory, and testified in high-profile cases. Evidence doesn't lie — but it takes someone like ${name} to make it speak. Every artifact is a witness. ${p[3]} just knows how to ask.`,
+      skills: ['Disk Forensics','Memory Analysis','Chain of Custody','Autopsy','Timeline Reconstruction'],
+      title: 'The Evidence Sculptor',
+    },
+  };
+
+  const profile = loreMap[role] || loreMap['Threat Hunter'];
+
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('card-wrap').style.display = 'none';
+  document.getElementById('gen-status').classList.remove('active');
+  document.getElementById('flip-tip').classList.remove('visible');
+  document.getElementById('btn-dl').classList.remove('visible');
+
+  renderCard({
+    name, style, role, years, place, gender,
+    lore_short: profile.short,
+    lore_full:  profile.full,
+    skills:     profile.skills,
+    title:      profile.title,
+    card_id:    'DEMO-' + Math.floor(Math.random() * 9000 + 1000),
+  });
+}
+</script>
+</body>
+</html>
