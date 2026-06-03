@@ -157,9 +157,6 @@ section h2 em {
 .nav-logo-img {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid rgba(168,85,247,0.45);
   flex-shrink: 0;
 }
 
@@ -367,19 +364,6 @@ section h2 em {
 .btn-ghost:hover {
   border-color: var(--accent);
   color: var(--accent);
-}
-
-/* ── Bear mascot — below hero title ── */
-.hero-bear {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-  object-position: center 18%;
-  border-radius: 10px;
-  border: 1px solid rgba(168,85,247,0.35);
-  box-shadow: 0 0 32px rgba(168,85,247,0.18), 0 0 64px rgba(236,72,153,0.08);
-  display: block;
-  margin: 20px 0 28px;
 }
 
 /* ── Terminal ── */
@@ -884,9 +868,6 @@ footer {
     padding-bottom: 60px;
   }
 
-  .hero-bear {
-    height: 140px;
-  }
 
   .about-grid,
   .links-layout {
