@@ -4,18 +4,19 @@
    =================================== */
 
 :root {
-  --bg:        #0a0a0a;
-  --bg-2:      #111111;
-  --bg-3:      #181818;
-  --border:    #222222;
-  --border-2:  #2a2a2a;
-  --text:      #e8e8e8;
-  --text-dim:  #888888;
-  --text-dimmer: #444444;
-  --accent:    #00ff88;
-  --accent-2:  #00cc6a;
-  --accent-dim: rgba(0, 255, 136, 0.08);
-  --accent-glow: rgba(0, 255, 136, 0.15);
+  --bg:        #0A0A12;
+  --bg-2:      #11111C;
+  --bg-3:      #1A1A28;
+  --border:    rgba(168,85,247,0.18);
+  --border-2:  rgba(168,85,247,0.26);
+  --text:      #F1F0FF;
+  --text-dim:  #9B8FCE;
+  --text-dimmer: #5A5280;
+  --accent:    #A855F7;
+  --accent-2:  #7C3AED;
+  --accent-dim: rgba(168,85,247,0.10);
+  --accent-glow: rgba(168,85,247,0.20);
+  --pink:      #EC4899;
   --red:       #ff4444;
   --yellow:    #ffcc00;
   --font-mono: 'Space Mono', 'Courier New', monospace;
@@ -126,7 +127,7 @@ section h2 em {
   left: 0;
   right: 0;
   z-index: 900;
-  background: rgba(10, 10, 10, 0.85);
+  background: rgba(10, 10, 18, 0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
@@ -202,7 +203,7 @@ section h2 em {
   right: -200px;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(0,255,136,0.04) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(168,85,247,0.10) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -262,7 +263,7 @@ section h2 em {
 }
 
 .glitch::after {
-  color: #ff0055;
+  color: var(--pink);
   animation: glitch2 3.5s infinite;
   clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
 }
@@ -303,7 +304,7 @@ section h2 em {
   letter-spacing: 0.1em;
   padding: 12px 28px;
   background: var(--accent);
-  color: #000;
+  color: #fff;
   border-radius: var(--radius);
   transition: all 0.2s;
   text-transform: lowercase;
@@ -312,7 +313,7 @@ section h2 em {
 .btn-primary:hover {
   background: var(--accent-2);
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(0, 255, 136, 0.2);
+  box-shadow: 0 8px 24px rgba(168,85,247,0.35);
 }
 
 .btn-ghost {
@@ -517,7 +518,7 @@ section h2 em {
 }
 
 .project-card.featured:hover {
-  background: rgba(0, 255, 136, 0.12);
+  background: rgba(168,85,247,0.12);
 }
 
 .project-meta {
@@ -544,7 +545,7 @@ section h2 em {
 .project-lang {
   background: var(--accent-dim);
   color: var(--accent);
-  border: 1px solid rgba(0, 255, 136, 0.2);
+  border: 1px solid rgba(168,85,247,0.25);
 }
 
 .project-card h3 {
@@ -636,7 +637,7 @@ section h2 em {
 .blog-tag {
   font-size: 10px;
   color: var(--accent);
-  border: 1px solid rgba(0,255,136,0.2);
+  border: 1px solid rgba(168,85,247,0.25);
   padding: 2px 8px;
   border-radius: 2px;
   width: fit-content;
@@ -728,7 +729,7 @@ section h2 em {
 }
 
 .link-card.highlight {
-  border-color: rgba(0, 255, 136, 0.3);
+  border-color: rgba(168,85,247,0.40);
 }
 
 .link-icon {
