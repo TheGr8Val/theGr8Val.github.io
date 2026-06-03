@@ -16,45 +16,52 @@
   <!-- NAV -->
   <nav id="nav">
     <div class="nav-inner">
-      <span class="nav-logo">theGr8Val<span class="cursor-blink">_</span></span>
+      <a class="nav-logo" href="#">
+        <img src="images/logo.png" alt="theGr8Val" class="nav-logo-img" />
+        theGr8Val<span class="cursor-blink">_</span>
+      </a>
       <ul class="nav-links">
-        <li><a href="#about">about</a></li>
-        <li><a href="#projects">projects</a></li>
-        <li><a href="#blog">blog</a></li>
-        <li><a href="#links">links</a></li>
+        <li><a href="#about" data-i18n="nav.about">about</a></li>
+        <li><a href="#projects" data-i18n="nav.projects">projects</a></li>
+        <li><a href="#blog" data-i18n="nav.blog">blog</a></li>
+        <li><a href="#links" data-i18n="nav.links">links</a></li>
       </ul>
+      <button class="lang-toggle" id="lang-toggle">ES</button>
     </div>
   </nav>
 
   <!-- HERO -->
   <section id="hero">
     <div class="hero-content">
-      <div class="hero-tag">[ security / ctf / open-source ]</div>
+      <div class="hero-tag" data-i18n="hero.tag">[ security / ctf / open-source ]</div>
       <h1 class="hero-title">
         <span class="glitch" data-text="theGr8Val">theGr8Val</span>
       </h1>
-      <p class="hero-sub">I break things to understand them.<br>I build things to fix them.<br>I write things so I don't lose my mind.</p>
+      <p class="hero-sub" data-i18n="hero.sub">I break things to understand them.<br>I build things to fix them.<br>I write things so I don't lose my mind.</p>
       <div class="hero-cta">
-        <a href="#projects" class="btn-primary">view work</a>
+        <a href="#projects" class="btn-primary" data-i18n="hero.cta.work">view work</a>
         <a href="https://github.com/theGr8Val" target="_blank" class="btn-ghost">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
           github
         </a>
       </div>
     </div>
-    <div class="hero-terminal">
-      <div class="terminal-header">
-        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-        <span class="terminal-title">~/theGr8Val</span>
-      </div>
-      <div class="terminal-body" id="terminal-body">
-        <div class="term-line"><span class="prompt">$</span> <span class="cmd">whoami</span></div>
-        <div class="term-line output" id="t1"></div>
-        <div class="term-line"><span class="prompt">$</span> <span class="cmd">cat interests.txt</span></div>
-        <div class="term-line output" id="t2"></div>
-        <div class="term-line"><span class="prompt">$</span> <span class="cmd">ls ctf/</span></div>
-        <div class="term-line output" id="t3"></div>
-        <div class="term-line"><span class="prompt">$</span> <span class="cmd" id="t4-cmd"></span><span class="cursor-blink">_</span></div>
+    <div class="hero-right">
+      <img src="images/bear.png" alt="theGr8Val — cyber bear mascot" class="hero-bear" />
+      <div class="hero-terminal">
+        <div class="terminal-header">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="terminal-title">~/theGr8Val</span>
+        </div>
+        <div class="terminal-body" id="terminal-body">
+          <div class="term-line"><span class="prompt">$</span> <span class="cmd">whoami</span></div>
+          <div class="term-line output" id="t1"></div>
+          <div class="term-line"><span class="prompt">$</span> <span class="cmd">cat interests.txt</span></div>
+          <div class="term-line output" id="t2"></div>
+          <div class="term-line"><span class="prompt">$</span> <span class="cmd">ls ctf/</span></div>
+          <div class="term-line output" id="t3"></div>
+          <div class="term-line"><span class="prompt">$</span> <span class="cmd" id="t4-cmd"></span><span class="cursor-blink">_</span></div>
+        </div>
       </div>
     </div>
   </section>
@@ -62,30 +69,30 @@
   <!-- ABOUT -->
   <section id="about">
     <div class="section-inner">
-      <div class="section-label">// 01 — about</div>
+      <div class="section-label" data-i18n="about.label">// 01 — about</div>
       <div class="about-grid">
         <div class="about-text">
-          <h2>not your typical<br><em>security person</em></h2>
-          <p>I'm Val. I live at the intersection of curiosity and paranoia — which, if you think about it, is exactly where you want your security researcher to be.</p>
-          <p>CTF competitions are my gym. Open source is my philosophy. Overthinking is my superpower (and my curse). I believe the best way to understand a system is to try to break it — ethically, of course.</p>
-          <p>When I'm not hunting flags or submitting PRs, I'm probably writing about the thing I just learned, the rabbit hole I fell into, or the tool I built at 2 AM because nothing else did exactly what I needed.</p>
+          <h2 data-i18n="about.title">not your typical<br><em>security person</em></h2>
+          <p data-i18n="about.p1">I'm Val. I live at the intersection of curiosity and paranoia — which, if you think about it, is exactly where you want your security researcher to be.</p>
+          <p data-i18n="about.p2">CTF competitions are my gym. Open source is my philosophy. Overthinking is my superpower (and my curse). I believe the best way to understand a system is to try to break it — ethically, of course.</p>
+          <p data-i18n="about.p3">When I'm not hunting flags or submitting PRs, I'm probably writing about the thing I just learned, the rabbit hole I fell into, or the tool I built at 2 AM because nothing else did exactly what I needed.</p>
         </div>
         <div class="about-stats">
           <div class="stat-card">
             <span class="stat-num">∞</span>
-            <span class="stat-label">CTFs played</span>
+            <span class="stat-label" data-i18n="about.stat1">CTFs played</span>
           </div>
           <div class="stat-card">
             <span class="stat-num">OSS</span>
-            <span class="stat-label">forever</span>
+            <span class="stat-label" data-i18n="about.stat2">forever</span>
           </div>
           <div class="stat-card">
             <span class="stat-num">2AM</span>
-            <span class="stat-label">peak hours</span>
+            <span class="stat-label" data-i18n="about.stat3">peak hours</span>
           </div>
           <div class="stat-card">
             <span class="stat-num">¿?</span>
-            <span class="stat-label">lines of thought/day</span>
+            <span class="stat-label" data-i18n="about.stat4">lines of thought/day</span>
           </div>
         </div>
       </div>
@@ -106,68 +113,68 @@
   <!-- PROJECTS -->
   <section id="projects">
     <div class="section-inner">
-      <div class="section-label">// 02 — projects</div>
-      <h2>things I've built<br><em>& broken</em></h2>
+      <div class="section-label" data-i18n="projects.label">// 02 — projects</div>
+      <h2 data-i18n="projects.title">things I've built<br><em>& broken</em></h2>
       <div class="projects-grid">
 
         <article class="project-card featured">
           <div class="project-meta">
-            <span class="project-type">tool</span>
+            <span class="project-type" data-i18n="tag.tool">tool</span>
             <span class="project-lang">HTML / AI</span>
           </div>
           <h3>CyberRGB Card Generator</h3>
-          <p>Generate your cyberpunk security character card. Pick your role, style, and years in the field — AI writes your lore. Demo mode available, no API key needed.</p>
+          <p data-i18n="proj.cyberrgb">Generate your cyberpunk security character card. Pick your role, style, and years in the field — AI writes your lore. Demo mode available, no API key needed.</p>
           <div class="project-links">
-            <a href="cyberrgbcard/" >→ try it live</a>
-            <a href="https://github.com/TheGr8Val/TGV-CyberRGBCard" target="_blank">→ source</a>
+            <a href="cyberrgbcard/" data-i18n="proj.link.try">→ try it live</a>
+            <a href="https://github.com/TheGr8Val/TGV-CyberRGBCard" target="_blank" data-i18n="proj.link.source">→ source</a>
           </div>
         </article>
 
         <article class="project-card">
           <div class="project-meta">
-            <span class="project-type">resource</span>
+            <span class="project-type" data-i18n="tag.resource">resource</span>
             <span class="project-lang">LLM</span>
           </div>
           <h3>TGV-Grimoire</h3>
-          <p>Curated collection of LLM prompts engineered for cybersecurity practitioners — analysts, threat hunters, detection engineers, and red teamers who want to leverage AI in their daily workflows.</p>
+          <p data-i18n="proj.grimoire">Curated collection of LLM prompts engineered for cybersecurity practitioners — analysts, threat hunters, detection engineers, and red teamers who want to leverage AI in their daily workflows.</p>
           <div class="project-links">
-            <a href="https://github.com/TheGr8Val/TGV-Grimoire" target="_blank">→ source</a>
+            <a href="https://github.com/TheGr8Val/TGV-Grimoire" target="_blank" data-i18n="proj.link.source">→ source</a>
           </div>
         </article>
 
         <article class="project-card">
           <div class="project-meta">
-            <span class="project-type">challenge</span>
+            <span class="project-type" data-i18n="tag.challenge">challenge</span>
             <span class="project-lang">multi</span>
           </div>
           <h3>TGV-VulnSpotter</h3>
-          <p>Community-driven hands-on challenges to practice spotting vulnerabilities in real-world-style code snippets, cloud configs, network rulesets, and architecture patterns.</p>
+          <p data-i18n="proj.vulnspotter">Community-driven hands-on challenges to practice spotting vulnerabilities in real-world-style code snippets, cloud configs, network rulesets, and architecture patterns.</p>
           <div class="project-links">
-            <a href="https://github.com/TheGr8Val/TGV-VulnSpotter" target="_blank">→ source</a>
+            <a href="https://github.com/TheGr8Val/TGV-VulnSpotter" target="_blank" data-i18n="proj.link.source">→ source</a>
           </div>
         </article>
 
         <article class="project-card">
           <div class="project-meta">
-            <span class="project-type">challenge</span>
+            <span class="project-type" data-i18n="tag.challenge">challenge</span>
             <span class="project-lang">KQL</span>
           </div>
           <h3>TGV-KQLDojo</h3>
-          <p>Structured KQL challenges designed for security analysts working in Microsoft Sentinel and Defender environments. Train detection skills through progressive difficulty.</p>
+          <p data-i18n="proj.kqldojo">Structured KQL challenges designed for security analysts working in Microsoft Sentinel and Defender environments. Train detection skills through progressive difficulty.</p>
           <div class="project-links">
-            <a href="https://github.com/TheGr8Val/TGV-KQLDojo" target="_blank">→ source</a>
+            <a href="https://github.com/TheGr8Val/TGV-KQLDojo" target="_blank" data-i18n="proj.link.source">→ source</a>
           </div>
         </article>
 
         <article class="project-card">
           <div class="project-meta">
-            <span class="project-type">tool</span>
+            <span class="project-type" data-i18n="tag.tool">tool</span>
             <span class="project-lang">python</span>
           </div>
           <h3>TGV-CareerCompass</h3>
-          <p>Fully offline interactive terminal tool that helps cybersecurity professionals discover their ideal career path, the certs to get there, and a concrete roadmap — all in under 5 minutes.</p>
+          <p data-i18n="proj.careercompass">Fully offline interactive terminal tool that helps cybersecurity professionals discover their ideal career path, the certs to get there, and a concrete roadmap — all in under 5 minutes.</p>
           <div class="project-links">
-            <a href="https://github.com/TheGr8Val/TGV-CareerCompas" target="_blank">→ source</a>
+            <a href="https://github.com/TheGr8Val/TGV-CareerCompas" target="_blank" data-i18n="proj.link.source">→ source</a>
           </div>
         </article>
 
@@ -178,48 +185,48 @@
   <!-- BLOG -->
   <section id="blog">
     <div class="section-inner">
-      <div class="section-label">// 03 — blog</div>
-      <h2>writing things<br><em>down</em></h2>
+      <div class="section-label" data-i18n="blog.label">// 03 — blog</div>
+      <h2 data-i18n="blog.title">writing things<br><em>down</em></h2>
       <div class="blog-list">
 
         <a href="https://medium.com/@thegr8v4l/from-skills-to-tokens-392e817b180d" target="_blank" class="blog-card">
           <div class="blog-card-meta">
             <span class="blog-date">2026-04-30</span>
-            <span class="blog-tag">opinion</span>
+            <span class="blog-tag" data-i18n="blog.tag.opinion">opinion</span>
           </div>
           <h3 class="blog-title">From Skills to Tokens</h3>
-          <p class="blog-excerpt">AI tools are shifting cybersecurity from skill-based to access-based competition — raising hard questions about what expertise is worth in an automated world.</p>
-          <span class="blog-read">read →</span>
+          <p class="blog-excerpt" data-i18n="blog.post1">AI tools are shifting cybersecurity from skill-based to access-based competition — raising hard questions about what expertise is worth in an automated world.</p>
+          <span class="blog-read" data-i18n="blog.read">read →</span>
         </a>
 
         <a href="https://medium.com/@thegr8v4l/%EF%B8%8F-stt-3-comment-and-control-1f3fb1b52fd1" target="_blank" class="blog-card">
           <div class="blog-card-meta">
             <span class="blog-date">2026-04-29</span>
-            <span class="blog-tag">security</span>
+            <span class="blog-tag" data-i18n="blog.tag.security">security</span>
           </div>
           <h3 class="blog-title">STT #3 — Comment and Control</h3>
-          <p class="blog-excerpt">Malicious instructions in GitHub PR titles can trigger AI coding agents to leak API keys and credentials — a new attack surface hiding in plain sight inside CI/CD pipelines.</p>
-          <span class="blog-read">read →</span>
+          <p class="blog-excerpt" data-i18n="blog.post2">Malicious instructions in GitHub PR titles can trigger AI coding agents to leak API keys and credentials — a new attack surface hiding in plain sight inside CI/CD pipelines.</p>
+          <span class="blog-read" data-i18n="blog.read">read →</span>
         </a>
 
         <a href="https://medium.com/@thegr8v4l/%EF%B8%8F-stt-2-when-ai-finds-zero-days-faster-than-humans-can-patch-them-ee19c0b2271c" target="_blank" class="blog-card">
           <div class="blog-card-meta">
             <span class="blog-date">2026-04-16</span>
-            <span class="blog-tag">security</span>
+            <span class="blog-tag" data-i18n="blog.tag.security">security</span>
           </div>
           <h3 class="blog-title">STT #2 — When AI Finds Zero-Days Faster Than Humans Can Patch Them</h3>
-          <p class="blog-excerpt">Autonomous AI chained zero-day exploits across major OSes and browsers — compressing the discovery timeline from months to hours. What that means for defenders.</p>
-          <span class="blog-read">read →</span>
+          <p class="blog-excerpt" data-i18n="blog.post3">Autonomous AI chained zero-day exploits across major OSes and browsers — compressing the discovery timeline from months to hours. What that means for defenders.</p>
+          <span class="blog-read" data-i18n="blog.read">read →</span>
         </a>
 
         <a href="https://medium.com/@thegr8v4l/%EF%B8%8Fstt-1-your-ai-gateway-was-a-backdoor-3dd15efc3a1b" target="_blank" class="blog-card">
           <div class="blog-card-meta">
             <span class="blog-date">2026-04-09</span>
-            <span class="blog-tag">security</span>
+            <span class="blog-tag" data-i18n="blog.tag.security">security</span>
           </div>
           <h3 class="blog-title">STT #1 — Your AI Gateway Was a Backdoor</h3>
-          <p class="blog-excerpt">33,185 secrets exposed across 6,943 machines through a LiteLLM supply chain attack — a poisoned security scanner in CI/CD lasting just 40 minutes.</p>
-          <span class="blog-read">read →</span>
+          <p class="blog-excerpt" data-i18n="blog.post4">33,185 secrets exposed across 6,943 machines through a LiteLLM supply chain attack — a poisoned security scanner in CI/CD lasting just 40 minutes.</p>
+          <span class="blog-read" data-i18n="blog.read">read →</span>
         </a>
 
       </div>
@@ -229,11 +236,11 @@
   <!-- LINKS -->
   <section id="links">
     <div class="section-inner">
-      <div class="section-label">// 04 — links</div>
+      <div class="section-label" data-i18n="links.label">// 04 — links</div>
       <div class="links-layout">
         <div class="links-copy">
-          <h2>find me<br><em>out there</em></h2>
-          <p>I'm not everywhere, but I'm somewhere. Links to the places where I actually exist online.</p>
+          <h2 data-i18n="links.title">find me<br><em>out there</em></h2>
+          <p data-i18n="links.sub">I'm not everywhere, but I'm somewhere. Links to the places where I actually exist online.</p>
         </div>
         <div class="links-grid">
           <a href="https://github.com/theGr8Val" target="_blank" class="link-card">
@@ -242,9 +249,9 @@
             </div>
             <div class="link-info">
               <span class="link-name">GitHub</span>
-              <span class="link-desc">code, tools, writeups</span>
+              <span class="link-desc" data-i18n="link.github">code, tools, writeups</span>
             </div>
-            <span class="link-arrow">↗</span>
+            <span class="link-arrow">→</span>
           </a>
 
           <a href="https://medium.com/@thegr8v4l" target="_blank" class="link-card">
@@ -253,36 +260,36 @@
             </div>
             <div class="link-info">
               <span class="link-name">Medium</span>
-              <span class="link-desc">artículos largos, análisis, opiniones</span>
+              <span class="link-desc" data-i18n="link.medium">articles, analysis, opinions</span>
             </div>
-            <span class="link-arrow">↗</span>
+            <span class="link-arrow">→</span>
           </a>
 
           <a href="https://buymeacoffee.com/thegr8val" target="_blank" class="link-card highlight">
             <div class="link-icon">☕</div>
             <div class="link-info">
               <span class="link-name">Buy Me a Coffee</span>
-              <span class="link-desc">if this helped you, fuel the next writeup</span>
+              <span class="link-desc" data-i18n="link.coffee">if this helped you, fuel the next writeup</span>
             </div>
-            <span class="link-arrow">↗</span>
+            <span class="link-arrow">→</span>
           </a>
 
           <a href="mailto:Thegr8Val@proton.me" class="link-card">
             <div class="link-icon">✉</div>
             <div class="link-info">
               <span class="link-name">Email</span>
-              <span class="link-desc">for real things worth discussing</span>
+              <span class="link-desc" data-i18n="link.email">for real things worth discussing</span>
             </div>
-            <span class="link-arrow">↗</span>
+            <span class="link-arrow">→</span>
           </a>
 
           <a href="https://x.com/TheGr8V4l" target="_blank" class="link-card">
             <div class="link-icon">𝕏</div>
             <div class="link-info">
               <span class="link-name">Twitter / X</span>
-              <span class="link-desc">thoughts, links, live CTF suffering</span>
+              <span class="link-desc" data-i18n="link.twitter">thoughts, links, live CTF suffering</span>
             </div>
-            <span class="link-arrow">↗</span>
+            <span class="link-arrow">→</span>
           </a>
         </div>
       </div>
@@ -293,8 +300,8 @@
   <footer>
     <div class="footer-inner">
       <span class="footer-brand">theGr8Val<span class="cursor-blink">_</span></span>
-      <span class="footer-copy">built in the dark. deployed with intent.</span>
-      <a href="https://github.com/theGr8Val/theGr8Val.github.io" target="_blank" class="footer-src">view source ↗</a>
+      <span class="footer-copy" data-i18n="footer.copy">built in the dark. deployed with intent.</span>
+      <a href="https://github.com/theGr8Val/theGr8Val.github.io" target="_blank" class="footer-src" data-i18n="footer.src">view source →</a>
     </div>
   </footer>
 
