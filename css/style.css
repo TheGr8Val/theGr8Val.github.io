@@ -241,17 +241,16 @@ section h2 em {
   pointer-events: none;
 }
 
-/* Layout: content | terminal */
+/* Layout: single column, terminal sits below CTA */
 #hero {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   max-width: 1100px;
   margin: 0 auto;
   padding-left: 32px;
   padding-right: 32px;
   min-height: 100vh;
-  align-items: center;
 }
 
 .hero-content {
@@ -372,9 +371,10 @@ section h2 em {
 
 /* ── Terminal ── */
 .hero-terminal {
-  align-self: center;
+  margin-top: 32px;
   position: relative;
   z-index: 1;
+  max-width: 560px;
   background: var(--bg-2);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -863,8 +863,8 @@ footer {
 
 /* ── Eris mascot ── */
 @keyframes erisFlicker {
-  0%, 100% { opacity: 0.92; }
-  50%      { opacity: 1;    }
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 0.55; }
 }
 
 .hero-eris {
@@ -897,7 +897,6 @@ footer {
    ============================ */
 @media (max-width: 900px) {
   #hero {
-    grid-template-columns: 1fr;
     min-height: auto;
     padding-top: 120px;
     padding-bottom: 60px;
