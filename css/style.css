@@ -319,9 +319,10 @@ section h2 em {
 .hero-sub {
   font-family: var(--font-mono);
   font-size: 14px;
-  color: var(--text-dim);
+  color: var(--text);
   line-height: 2;
   margin-bottom: 40px;
+  text-shadow: 0 1px 12px rgba(10, 10, 18, 0.95);
 }
 
 .hero-cta {
