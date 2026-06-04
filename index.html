@@ -1,8 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none';" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>theGr8Val — security, code, overthinking</title>
   <meta name="description" content="theGr8Val — CTF player, security researcher, open-source advocate, professional overthinker." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -40,25 +42,25 @@
 <p class="hero-sub" data-i18n="hero.sub">I break things to understand them.<br>I build things to fix them.<br>I write things so I don't lose my mind.</p>
       <div class="hero-cta">
         <a href="#projects" class="btn-primary" data-i18n="hero.cta.work">view work</a>
-        <a href="https://github.com/theGr8Val" target="_blank" class="btn-ghost">
+        <a href="https://github.com/theGr8Val" target="_blank" rel="noopener noreferrer" class="btn-ghost">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
           github
         </a>
       </div>
-      <div class="hero-terminal">
-        <div class="terminal-header">
-          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-          <span class="terminal-title">~/theGr8Val</span>
-        </div>
-        <div class="terminal-body" id="terminal-body">
-          <div class="term-line"><span class="prompt">$</span> <span class="cmd">whoami</span></div>
-          <div class="term-line output" id="t1"></div>
-          <div class="term-line"><span class="prompt">$</span> <span class="cmd">cat interests.txt</span></div>
-          <div class="term-line output" id="t2"></div>
-          <div class="term-line"><span class="prompt">$</span> <span class="cmd">ls ctf/</span></div>
-          <div class="term-line output" id="t3"></div>
-          <div class="term-line"><span class="prompt">$</span> <span class="cmd" id="t4-cmd"></span><span class="cursor-blink">_</span></div>
-        </div>
+    </div>
+    <div class="hero-terminal">
+      <div class="terminal-header">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="terminal-title">~/theGr8Val</span>
+      </div>
+      <div class="terminal-body" id="terminal-body">
+        <div class="term-line"><span class="prompt">$</span> <span class="cmd">whoami</span></div>
+        <div class="term-line output" id="t1"></div>
+        <div class="term-line"><span class="prompt">$</span> <span class="cmd">cat interests.txt</span></div>
+        <div class="term-line output" id="t2"></div>
+        <div class="term-line"><span class="prompt">$</span> <span class="cmd">ls ctf/</span></div>
+        <div class="term-line output" id="t3"></div>
+        <div class="term-line"><span class="prompt">$</span> <span class="cmd" id="t4-cmd"></span><span class="cursor-blink">_</span></div>
       </div>
     </div>
     <img src="images/eris.png" alt="" aria-hidden="true" class="hero-eris" />
@@ -125,7 +127,7 @@
           <p data-i18n="proj.cyberrgb">Generate your cyberpunk security character card. Pick your role, style, and years in the field — AI writes your lore. Demo mode available, no API key needed.</p>
           <div class="project-links">
             <a href="cyberrgbcard/" data-i18n="proj.link.try">→ try it live</a>
-            <a href="https://github.com/TheGr8Val/TGV-CyberRGBCard" target="_blank" data-i18n="proj.link.source">→ source</a>
+            <a href="https://github.com/TheGr8Val/TGV-CyberRGBCard" target="_blank" rel="noopener noreferrer" data-i18n="proj.link.source">→ source</a>
           </div>
         </article>
 
@@ -137,8 +139,8 @@
           <h3>TGV-AIFramework</h3>
           <p data-i18n="proj.aiframework">Interactive decision tree for picking the right AI type for any project — ML, LLM, GenAI, Agentic, Embeddings, RAG, CV, and more. No vibes, no trends. Output shape and data type.</p>
           <div class="project-links">
-            <a href="https://thegr8val.github.io/TGV-AIFramework/" target="_blank" data-i18n="proj.link.try">→ try it live</a>
-            <a href="https://github.com/TheGr8Val/TGV-AIFramework" target="_blank" data-i18n="proj.link.source">→ source</a>
+            <a href="https://thegr8val.github.io/TGV-AIFramework/" target="_blank" rel="noopener noreferrer" data-i18n="proj.link.try">→ try it live</a>
+            <a href="https://github.com/TheGr8Val/TGV-AIFramework" target="_blank" rel="noopener noreferrer" data-i18n="proj.link.source">→ source</a>
           </div>
         </article>
 
@@ -150,7 +152,7 @@
           <h3>TGV-Grimoire</h3>
           <p data-i18n="proj.grimoire">Curated collection of LLM prompts engineered for cybersecurity practitioners — analysts, threat hunters, detection engineers, and red teamers who want to leverage AI in their daily workflows.</p>
           <div class="project-links">
-            <a href="https://github.com/TheGr8Val/TGV-Grimoire" target="_blank" data-i18n="proj.link.source">→ source</a>
+            <a href="https://github.com/TheGr8Val/TGV-Grimoire" target="_blank" rel="noopener noreferrer" data-i18n="proj.link.source">→ source</a>
           </div>
         </article>
 
@@ -162,7 +164,7 @@
           <h3>TGV-VulnSpotter</h3>
           <p data-i18n="proj.vulnspotter">Community-driven hands-on challenges to practice spotting vulnerabilities in real-world-style code snippets, cloud configs, network rulesets, and architecture patterns.</p>
           <div class="project-links">
-            <a href="https://github.com/TheGr8Val/TGV-VulnSpotter" target="_blank" data-i18n="proj.link.source">→ source</a>
+            <a href="https://github.com/TheGr8Val/TGV-VulnSpotter" target="_blank" rel="noopener noreferrer" data-i18n="proj.link.source">→ source</a>
           </div>
         </article>
 
@@ -174,7 +176,7 @@
           <h3>TGV-KQLDojo</h3>
           <p data-i18n="proj.kqldojo">Structured KQL challenges designed for security analysts working in Microsoft Sentinel and Defender environments. Train detection skills through progressive difficulty.</p>
           <div class="project-links">
-            <a href="https://github.com/TheGr8Val/TGV-KQLDojo" target="_blank" data-i18n="proj.link.source">→ source</a>
+            <a href="https://github.com/TheGr8Val/TGV-KQLDojo" target="_blank" rel="noopener noreferrer" data-i18n="proj.link.source">→ source</a>
           </div>
         </article>
 
@@ -186,7 +188,7 @@
           <h3>TGV-CareerCompass</h3>
           <p data-i18n="proj.careercompass">Fully offline interactive terminal tool that helps cybersecurity professionals discover their ideal career path, the certs to get there, and a concrete roadmap — all in under 5 minutes.</p>
           <div class="project-links">
-            <a href="https://github.com/TheGr8Val/TGV-CareerCompas" target="_blank" data-i18n="proj.link.source">→ source</a>
+            <a href="https://github.com/TheGr8Val/TGV-CareerCompas" target="_blank" rel="noopener noreferrer" data-i18n="proj.link.source">→ source</a>
           </div>
         </article>
 
@@ -201,7 +203,7 @@
       <h2 data-i18n="blog.title">writing things<br><em>down</em></h2>
       <div class="blog-list">
 
-        <a href="https://medium.com/@thegr8v4l/from-skills-to-tokens-392e817b180d" target="_blank" class="blog-card">
+        <a href="https://medium.com/@thegr8v4l/from-skills-to-tokens-392e817b180d" target="_blank" rel="noopener noreferrer" class="blog-card">
           <div class="blog-card-meta">
             <span class="blog-date">2026-04-30</span>
             <span class="blog-tag" data-i18n="blog.tag.opinion">opinion</span>
@@ -211,7 +213,7 @@
           <span class="blog-read" data-i18n="blog.read">read →</span>
         </a>
 
-        <a href="https://medium.com/@thegr8v4l/%EF%B8%8F-stt-3-comment-and-control-1f3fb1b52fd1" target="_blank" class="blog-card">
+        <a href="https://medium.com/@thegr8v4l/%EF%B8%8F-stt-3-comment-and-control-1f3fb1b52fd1" target="_blank" rel="noopener noreferrer" class="blog-card">
           <div class="blog-card-meta">
             <span class="blog-date">2026-04-29</span>
             <span class="blog-tag" data-i18n="blog.tag.security">security</span>
@@ -221,7 +223,7 @@
           <span class="blog-read" data-i18n="blog.read">read →</span>
         </a>
 
-        <a href="https://medium.com/@thegr8v4l/%EF%B8%8F-stt-2-when-ai-finds-zero-days-faster-than-humans-can-patch-them-ee19c0b2271c" target="_blank" class="blog-card">
+        <a href="https://medium.com/@thegr8v4l/%EF%B8%8F-stt-2-when-ai-finds-zero-days-faster-than-humans-can-patch-them-ee19c0b2271c" target="_blank" rel="noopener noreferrer" class="blog-card">
           <div class="blog-card-meta">
             <span class="blog-date">2026-04-16</span>
             <span class="blog-tag" data-i18n="blog.tag.security">security</span>
@@ -231,7 +233,7 @@
           <span class="blog-read" data-i18n="blog.read">read →</span>
         </a>
 
-        <a href="https://medium.com/@thegr8v4l/%EF%B8%8Fstt-1-your-ai-gateway-was-a-backdoor-3dd15efc3a1b" target="_blank" class="blog-card">
+        <a href="https://medium.com/@thegr8v4l/%EF%B8%8Fstt-1-your-ai-gateway-was-a-backdoor-3dd15efc3a1b" target="_blank" rel="noopener noreferrer" class="blog-card">
           <div class="blog-card-meta">
             <span class="blog-date">2026-04-09</span>
             <span class="blog-tag" data-i18n="blog.tag.security">security</span>
@@ -255,7 +257,7 @@
           <p data-i18n="links.sub">I'm not everywhere, but I'm somewhere. Links to the places where I actually exist online.</p>
         </div>
         <div class="links-grid">
-          <a href="https://github.com/theGr8Val" target="_blank" class="link-card">
+          <a href="https://github.com/theGr8Val" target="_blank" rel="noopener noreferrer" class="link-card">
             <div class="link-icon">
               <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
             </div>
@@ -266,7 +268,7 @@
             <span class="link-arrow">→</span>
           </a>
 
-          <a href="https://medium.com/@thegr8v4l" target="_blank" class="link-card">
+          <a href="https://medium.com/@thegr8v4l" target="_blank" rel="noopener noreferrer" class="link-card">
             <div class="link-icon">
               <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
             </div>
@@ -277,7 +279,7 @@
             <span class="link-arrow">→</span>
           </a>
 
-          <a href="https://buymeacoffee.com/thegr8val" target="_blank" class="link-card highlight">
+          <a href="https://buymeacoffee.com/thegr8val" target="_blank" rel="noopener noreferrer" class="link-card highlight">
             <div class="link-icon">☕</div>
             <div class="link-info">
               <span class="link-name">Buy Me a Coffee</span>
@@ -295,7 +297,7 @@
             <span class="link-arrow">→</span>
           </a>
 
-          <a href="https://x.com/TheGr8V4l" target="_blank" class="link-card">
+          <a href="https://x.com/TheGr8V4l" target="_blank" rel="noopener noreferrer" class="link-card">
             <div class="link-icon">𝕏</div>
             <div class="link-info">
               <span class="link-name">Twitter / X</span>
@@ -320,3 +322,4 @@
   <script src="js/main.js"></script>
 </body>
 </html>
+
