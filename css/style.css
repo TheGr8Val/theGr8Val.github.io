@@ -861,6 +861,37 @@ footer {
 .hero-cta     { animation: fadeUp 0.6s ease both; animation-delay: 0.55s; }
 .hero-terminal{ animation: fadeUp 0.8s ease both; animation-delay: 0.4s; }
 
+/* ── Eris mascot ── */
+@keyframes erisFlicker {
+  0%, 100% { opacity: 0.92; }
+  50%      { opacity: 1;    }
+}
+
+.hero-eris {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  max-height: 480px;
+  width: auto;
+  z-index: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 0 32px rgba(119, 48, 204, 0.5));
+  animation: erisFlicker 3s ease-in-out infinite;
+  user-select: none;
+}
+
+/* ── Mascot credit ── */
+.mascot-credit {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: #556677;
+  text-align: center;
+  padding: 10px 32px 0;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
 /* ============================
    RESPONSIVE
    ============================ */
@@ -871,6 +902,7 @@ footer {
     padding-top: 120px;
     padding-bottom: 60px;
   }
+  .hero-eris { display: none; }
 
 
   .about-grid,
